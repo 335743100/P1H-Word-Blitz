@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @version 1.0.0
  */
 public class ReadWordFiles {
-    public static ArrayList<ArrayList<String>> ReadWordFiles() throws FileNotFoundException {
+    public static ArrayList<ArrayList<String>> readWordFiles() throws FileNotFoundException {
         ArrayList<String> nouns = new ArrayList<String>();
         ArrayList<String> verbs = new ArrayList<String>();
         ArrayList<String> adjectives = new ArrayList<String>();
