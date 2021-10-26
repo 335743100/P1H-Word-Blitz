@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @version 1.0.0
  */
 public class ReadWordFiles {
-    public static ArrayList<ArrayList<String>> readWordFiles() throws FileNotFoundException {
+    public static ArrayList<ArrayList<String>> readWordFiles() {
         ArrayList<String> nouns = new ArrayList<String>();
         ArrayList<String> verbs = new ArrayList<String>();
         ArrayList<String> adjectives = new ArrayList<String>();
@@ -21,14 +21,16 @@ public class ReadWordFiles {
         lst.add(verbs);
         lst.add(adjectives);
         String[] types = {"nouns.txt", "verbs.txt", "adjectives.txt"};
-        for (int i = 0; i < 3; i++) {
-            File file = new File(types[i]);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                lst.get(i).add(scanner.nextLine());
+        try {
+            for (int i = 0; i < 3; i++) {
+                File file = new File(types[i]);
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    lst.get(i).add(scanner.nextLine());
+                }
+                scanner.close();
             }
-            scanner.close();
-        }
+        } catch (FileNotFoundException ignored) {}
         return lst;
     }
 }
