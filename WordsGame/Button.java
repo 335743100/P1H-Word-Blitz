@@ -12,7 +12,9 @@ public class Button extends Actor
     private GreenfootImage image;
     public static final int BUTTON_WIDTH = 960 / 6;
     public static final int BUTTON_HEIGHT = 540 / 11;
-    public static final Color hoverColor = MainMenu.titleColor;
+    private Color bgColor;
+    private Color labelColor;
+    private Color hoverColor;
     private String label;
     public static Font labelFont = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
     
@@ -24,11 +26,14 @@ public class Button extends Actor
     private MouseInfo mouse;
     private boolean hovering = false;
     
-    public Button(String str){
+    public Button(String str, Color bgColor, Color labelColor, Color hoverColor){
         image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons
         label = str;
         //setting the image for the button
-        drawButton(Color.BLACK, Color.WHITE, hoverColor);
+        this.bgColor = bgColor;
+        this.labelColor = labelColor;
+        this.hoverColor = hoverColor;
+        drawButton();
         setImage(image);
     }
     
@@ -42,28 +47,28 @@ public class Button extends Actor
                 moveSound.play();
                 soundPlayed = true;
             }
-            drawButton(Color.BLACK, Color.WHITE, hoverColor);
+            drawButton();
             setImage(image);
         }
         if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(this)){
             hovering = false;
             soundPlayed = false;
-            drawButton(Color.BLACK, Color.WHITE, hoverColor);
+            drawButton();
             setImage(image);
         }
     }
     
     public void update(String label){
         this.label = label;
-        drawButton(Color.BLACK, Color.WHITE, hoverColor);
+        drawButton();
         this.setImage(image);
     }
     
     //method to draw the button with the given parameters
-    private void drawButton(Color backColor, Color labelColor, Color hoverColor){
+    private void drawButton(){
         image.clear();
         //drawing button
-        image.setColor(backColor);
+        image.setColor(bgColor);
         image.fillOval(0, 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.fillOval(0, image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.fillOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
@@ -73,7 +78,7 @@ public class Button extends Actor
         image.drawOval(0, image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
-        image.setColor(backColor);
+        image.setColor(bgColor);
         image.fillRect((image.getWidth() - 1) / 20, 0, image.getWidth() - 1 - (image.getWidth() - 1) / 10, image.getHeight() - 1);
         image.fillRect(0, (image.getWidth() - 1) / 20, image.getWidth() - 1, image.getHeight() - 1 - (image.getWidth() - 1) / 10);
         image.setColor(labelColor);

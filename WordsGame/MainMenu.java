@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MyWorld here.
+ * Write a description of class MainMenu here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -10,7 +10,7 @@ public class MainMenu extends World
 {
     
     private GreenfootImage background;
-    public static final Color menuColor = new Color(52, 232, 235);
+    public static final Color bgColor = new Color(52, 232, 235);
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, 100);
     private String title = "Word Blitz";
@@ -28,13 +28,13 @@ public class MainMenu extends World
         // Create a new world with 800x600 cells with a cell size of 1x1 pixels.
         super(GameWorld.WORLD_WIDTH, GameWorld.WORLD_HEIGHT, 1);
         background = new GreenfootImage(GameWorld.WORLD_WIDTH, GameWorld.WORLD_HEIGHT);
-        background.setColor(menuColor);
+        background.setColor(bgColor);
         background.fill();
         setBackground(background);
         
-        startButton = new Button("Start Game");
+        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.RED);
         addObject(startButton, GameWorld.WORLD_WIDTH / 2, GameWorld.WORLD_HEIGHT * 3 / 5);
-        instructionsButton = new Button("How To Play");
+        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.RED);
         addObject(instructionsButton, GameWorld.WORLD_WIDTH / 2, GameWorld.WORLD_HEIGHT * 4 / 5);
     }
     
