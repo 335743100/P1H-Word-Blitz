@@ -1,24 +1,82 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.lang.Math;
+import java.util.Arrays;
 
 /**
- * Write a description of class GameWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Template for the levels to follow.
+ *  
+ * @author Jaylen Cheung
+ * @version 0.0.2
  */
-public class GameWorld extends World
-{
+public abstract class GameWorld extends World {
+    private ArrayList<String> nouns;
+    private ArrayList<String> verbs;
+    private ArrayList<String> adjectives;
+    private ArrayList<ArrayList<String>> listOfWordTypes;
     
-    private GreenfootImage background;
-    public static final int WORLD_WIDTH = 800;
-    public static final int WORLD_HEIGHT = 500;
+    // The current word and character
+    private String currentWord;
+    private String currentChar;
+    
+    // The queue of words to display
+    private Queue<String> playerWordQueue;
+    // The letters that the player has typed. Resets on new word
+    private String playerInput;
+    // Number of letters the player has typed. Resets on new word
+    private int letterCount;
     /**
-     * Constructor for objects of class GameWorld.
+     * Constructor for objects of class MyWorld.
      * 
      */
-    public GameWorld()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
+    public GameWorld(int speed) {    
+        super(800, 500, 1);
+        listOfWordTypes = ReadWordFiles.readWordFiles();
+        nouns = listOfWordTypes.get(0);
+        verbs = listOfWordTypes.get(1);
+        adjectives = listOfWordTypes.get(2);
+        
+        playerWordQueue = new LinkedList<String>();
+        for (String i : generateWords(10)) {
+            playerWordQueue.add(i);
+        }
+        currentWord = playerWordQueue.remove();
+        currentChar = Character.toString(currentWord.charAt(0));
+        playerInput = "";
+        letterCount = 1;
+        System.out.println(currentWord);
     }
+    
+    public void act() {
+        if (Greenfoot.isKeyDown(currentChar)) {
+            playerInput += currentChar;
+            if (playerInput.equals(currentWord)) {
+                playerWordQueue.add(generateWords(1).get(0));
+                currentWord = playerWordQueue.remove();
+                playerInput = "";
+                letterCount = 0;
+                System.out.println(Arrays.toString(playerWordQueue.toArray()));
+                System.out.println(currentWord);
+            }
+            currentChar = Character.toString(currentWord.charAt(letterCount));
+            letterCount++;
+            System.out.println(playerInput);
+        }
+    }
+    
+    public ArrayList<String> generateWords(int amount) {
+        ArrayList<String> list = new ArrayList<String>();
+        // Choose which list randomly (nouns, verbs, adjectives)
+        int random1 = (int) Math.floor(Math.random()*(2-0+1)+0);
+        int length = listOfWordTypes.get(random1).size();
+        for (int i = 0; i < amount; i++) {
+            // Choose a random word from that list
+            int random2 = (int) Math.floor(Math.random()*(length-1-0+1)+0);
+            list.add(listOfWordTypes.get(random1).get(random2));
+        }
+        return list;
+    }
+    
 }
