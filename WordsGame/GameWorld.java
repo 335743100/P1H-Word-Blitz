@@ -36,7 +36,7 @@ public class GameWorld extends World {
      * 
      */
     public GameWorld(int speed) {    
-        super(800, 500, 1);
+        super(WORLD_WIDTH, WORLD_HEIGHT, 1);
         listOfWordTypes = ReadWordFiles.readWordFiles();
         nouns = listOfWordTypes.get(0);
         verbs = listOfWordTypes.get(1);
@@ -50,8 +50,11 @@ public class GameWorld extends World {
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
-        System.out.println(currentWord);
-        System.out.println("Hello!");
+        // System.out.println(currentWord);
+        
+        // Create score text
+        Text scoreText = new Text(this, 110, 50, "Score:");
+        
     }
     
     public void act() {
