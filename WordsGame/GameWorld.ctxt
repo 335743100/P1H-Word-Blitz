@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=GameWorld
-comment0.text=\n\ Template\ for\ the\ levels\ to\ follow.\n\ \ \n\ @author\ Jaylen\ Cheung\n\ @version\ 0.0.2\n
+comment0.text=\n\ Template\ for\ the\ levels\ to\ follow.\n\ \ \n\ @author\ Jaylen\ Cheung,\ Vaughn\ Chan\n\ @version\ 0.0.2\n
 comment1.params=speed
 comment1.target=GameWorld(int)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ MyWorld.\n\ \n

@@ -8,13 +8,16 @@ import java.util.Arrays;
 /**
  * Template for the levels to follow.
  *  
- * @author Jaylen Cheung
+ * @author Jaylen Cheung, Vaughn Chan
  * @version 0.0.2
  */
 public class GameWorld extends World {
     
     public static int WORLD_HEIGHT = 800;
     public static int WORLD_WIDTH = 600;
+    
+    // How fast the words drop
+    private int speed;
     
     private ArrayList<String> nouns;
     private ArrayList<String> verbs;
@@ -50,11 +53,13 @@ public class GameWorld extends World {
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
-        // System.out.println(currentWord);
+        System.out.println(currentWord);
         
         // Create score text
         Text scoreText = new Text(this, 110, 50, "Score:");
         
+        // TODO: Implement the words dropping and use this as a speed multiplier
+        this.speed = speed;
     }
     
     public void act() {

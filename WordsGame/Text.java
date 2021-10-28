@@ -67,6 +67,9 @@ public class Text extends Actor
         this.xPos = xPos;
         this.yPos = yPos;
         
+        // The positiion of object was defined on instantiation. Therefore
+        // the object needs to be removed and then added back with the
+        // correct position.
         currentWorld.removeObject(this);
         currentWorld.addObject(this, xPos, yPos);
         updateText();
@@ -75,6 +78,12 @@ public class Text extends Actor
     public void setColor(Color color)
     {
         this.textColor = color;
+        updateText();
+    }
+    
+    public void setFontSize(int fontSize)
+    {
+        this.fontSize = fontSize;
         updateText();
     }
     
