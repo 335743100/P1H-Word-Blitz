@@ -3,19 +3,27 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.Math;
-import java.util.Arrays;
 
 /**
  * Template for the levels to follow.
  *  
  * @author Jaylen Cheung
- * @version 0.0.2
+ * @version 0.0.3
  */
 public abstract class GameWorld extends World {
+    private static int WIDTH = 800;
+    private static int HEIGHT = 500;
+    private static Color BACKGROUND_COLOR = new Color(207, 185, 151);
+    
+    // Word bank
     private ArrayList<String> nouns;
     private ArrayList<String> verbs;
     private ArrayList<String> adjectives;
     private ArrayList<ArrayList<String>> listOfWordTypes;
+    
+    // Box of words to display
+    private WordBox wordBox;
+    private CorrectWordOverlay correctWordOverlay = new CorrectWordOverlay();
     
     // The current word and character
     private String currentWord;
@@ -29,43 +37,66 @@ public abstract class GameWorld extends World {
     private int letterCount;
     /**
      * Constructor for objects of class MyWorld.
-     * 
      */
-    public GameWorld(int speed) {    
-        super(800, 500, 1);
+    public GameWorld(int speed) {
+        super(WIDTH, HEIGHT, 1);
+        GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
+        background.setColor(BACKGROUND_COLOR);
+        background.fill();
+        setBackground(background);
+        
         listOfWordTypes = ReadWordFiles.readWordFiles();
         nouns = listOfWordTypes.get(0);
         verbs = listOfWordTypes.get(1);
         adjectives = listOfWordTypes.get(2);
         
         playerWordQueue = new LinkedList<String>();
-        for (String i : generateWords(10)) {
-            playerWordQueue.add(i);
+        for (String i : generateWords(20)) {
+            playerWordQueue.add(i + " ");
         }
+        // White box to display the words
+        wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
+        addObject(wordBox, 400, 250);
+        
+        addObject(correctWordOverlay, 400, 250);
+        
         currentWord = playerWordQueue.remove();
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
-        System.out.println(currentWord);
     }
     
     public void act() {
-        if (Greenfoot.isKeyDown(currentChar)) {
-            playerInput += currentChar;
-            if (playerInput.equals(currentWord)) {
-                playerWordQueue.add(generateWords(1).get(0));
-                currentWord = playerWordQueue.remove();
-                playerInput = "";
-                letterCount = 0;
-                System.out.println(Arrays.toString(playerWordQueue.toArray()));
-                System.out.println(currentWord);
+        if (Greenfoot.isKeyDown("space")) {
+            if (currentChar.equals(" ")) {
+                handleWords();
             }
-            currentChar = Character.toString(currentWord.charAt(letterCount));
-            letterCount++;
-            System.out.println(playerInput);
+        } else if (Greenfoot.isKeyDown(currentChar)) {
+            handleWords();
         }
     }
     
+    /*
+     * Handle the word box
+     */
+    public void handleWords() {
+        playerInput += currentChar;
+        if (playerInput.equals(currentWord)) {
+            playerWordQueue.add(generateWords(1).get(0) + " ");
+            wordBox.setWordBox(new LinkedList<String>(playerWordQueue));
+            currentWord = playerWordQueue.remove();
+            playerInput = "";
+            letterCount = 0;
+        }
+        currentChar = Character.toString(currentWord.charAt(letterCount));
+        correctWordOverlay.setWordBox(currentWord, letterCount);
+        letterCount++;
+    }
+    
+    /*
+     * Generate a random ArrayList of words
+     * @param amount Amount of words to generate
+     */
     public ArrayList<String> generateWords(int amount) {
         ArrayList<String> list = new ArrayList<String>();
         // Choose which list randomly (nouns, verbs, adjectives)
