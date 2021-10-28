@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=ReadWordFiles
+comment0.text=\n\ Gets\ all\ the\ words\ from\ the\ files\ and\ adds\ them\ to\ \n\ their\ corresponding\ ArrayList.\ Word\ files\ must\ be\ in\ the\ same\ directory.\n\ Implement\ this\ code\ into\ the\ game.\n\ \n\ @author\ Jaylen\ Cheung\n\ @version\ 1.0.0\n
+comment1.params=
+comment1.target=java.util.ArrayList\ readWordFiles()
+numComments=2

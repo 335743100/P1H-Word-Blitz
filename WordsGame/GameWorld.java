@@ -11,7 +11,11 @@ import java.util.Arrays;
  * @author Jaylen Cheung
  * @version 0.0.2
  */
-public abstract class GameWorld extends World {
+public class GameWorld extends World {
+    
+    public static int WORLD_HEIGHT = 800;
+    public static int WORLD_WIDTH = 600;
+    
     private ArrayList<String> nouns;
     private ArrayList<String> verbs;
     private ArrayList<String> adjectives;
@@ -47,6 +51,7 @@ public abstract class GameWorld extends World {
         playerInput = "";
         letterCount = 1;
         System.out.println(currentWord);
+        System.out.println("Hello!");
     }
     
     public void act() {

@@ -19,6 +19,7 @@ public class MainMenu extends World
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private MouseInfo mouse;
     
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -43,7 +44,7 @@ public class MainMenu extends World
         if(Greenfoot.mouseClicked(startButton)){
             //menuMusic.stop();
             clickSound.play();
-            Greenfoot.setWorld(new GameWorld());
+            Greenfoot.setWorld(new GameWorld(2));
         }
         else if(Greenfoot.mouseClicked(instructionsButton)){
             clickSound.play();

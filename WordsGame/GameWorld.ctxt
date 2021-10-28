@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=GameWorld
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ GameWorld\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=GameWorld()
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ GameWorld.\r\n\ \r\n
-numComments=2
+comment0.text=\n\ Template\ for\ the\ levels\ to\ follow.\n\ \ \n\ @author\ Jaylen\ Cheung\n\ @version\ 0.0.2\n
+comment1.params=speed
+comment1.target=GameWorld(int)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ MyWorld.\n\ \n
+comment2.params=
+comment2.target=void\ act()
+comment3.params=amount
+comment3.target=java.util.ArrayList\ generateWords(int)
+numComments=4
