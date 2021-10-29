@@ -13,6 +13,8 @@ public class MainMenu extends World
     public static final Color bgColor = new Color(52, 232, 235);
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, GameWorld.WORLD_HEIGHT / 10);
+    public static final Color highscoreColor = new Color(245, 236, 76);
+    public static final Font highscoreFont = new Font("Courier New", true, false, GameWorld.WORLD_HEIGHT / 20);
     private String title = "Word Blitz";
     
     private Button startButton, instructionsButton;
@@ -35,9 +37,9 @@ public class MainMenu extends World
         background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.RED);
+        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, highscoreColor);
         addObject(startButton, GameWorld.WORLD_WIDTH / 2, GameWorld.WORLD_HEIGHT * 3 / 5);
-        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.RED);
+        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, highscoreColor);
         addObject(instructionsButton, GameWorld.WORLD_WIDTH / 2, GameWorld.WORLD_HEIGHT * 4 / 5);
     }
     
