@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EndScreen extends World
 {
     private GreenfootImage background;
+    private static final int WIDTH = GameWorld.WIDTH;
+    private static final int HEIGHT = GameWorld.HEIGHT;
     public static final Color bgColor = new Color(52, 232, 235);
     
     private Button returnButton;
@@ -20,14 +22,14 @@ public class EndScreen extends World
     public EndScreen()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(GameWorld.WORLD_WIDTH, GameWorld.WORLD_HEIGHT, 1);
-        background = new GreenfootImage(GameWorld.WORLD_WIDTH, GameWorld.WORLD_HEIGHT);
+        super(WIDTH, HEIGHT, 1);
+        background = new GreenfootImage(WIDTH, HEIGHT);
         background.setColor(bgColor);
         background.fill();
         setBackground(background);
         
         returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.RED);
-        addObject(returnButton, GameWorld.WORLD_WIDTH / 8, GameWorld.WORLD_HEIGHT * 9 /10);
+        addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     
     public void act(){

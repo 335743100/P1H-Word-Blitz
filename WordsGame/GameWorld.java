@@ -11,8 +11,8 @@ import java.lang.Math;
  * @version 0.0.3
  */
 public abstract class GameWorld extends World {
-    private static int WIDTH = 800;
-    private static int HEIGHT = 500;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 500;
     private static Color BACKGROUND_COLOR = new Color(207, 185, 151);
     
     // Word bank
