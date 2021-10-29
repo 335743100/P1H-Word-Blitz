@@ -10,13 +10,11 @@ public class MainMenu extends World
 {
     
     private GreenfootImage background;
-    private static final int WIDTH = GameWorld.WIDTH;
-    private static final int HEIGHT = GameWorld.HEIGHT;
+    private static int WIDTH = 800;
+    private static int HEIGHT = 500;
     public static final Color bgColor = new Color(52, 232, 235);
     public static final Color titleColor = new Color(255, 0, 0);
-    public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
-    public static final Color highscoreColor = new Color(245, 236, 76);
-    public static final Font highscoreFont = new Font("Courier New", true, false, HEIGHT / 20);
+    public static Font titleFont = new Font("Courier New", true, false, 100);
     private String title = "Word Blitz";
     
     private Button startButton, instructionsButton;
@@ -34,14 +32,11 @@ public class MainMenu extends World
         background = new GreenfootImage(WIDTH, HEIGHT);
         background.setColor(bgColor);
         background.fill();
-        background.setColor(titleColor);
-        background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, highscoreColor);
+        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.RED);
         addObject(startButton, WIDTH / 2, HEIGHT * 3 / 5);
-        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, highscoreColor);
+        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.RED);
         addObject(instructionsButton, WIDTH / 2, HEIGHT * 4 / 5);
     }
     
@@ -50,7 +45,7 @@ public class MainMenu extends World
         if(Greenfoot.mouseClicked(startButton)){
             //menuMusic.stop();
             clickSound.play();
-            Greenfoot.setWorld(new GameWorld(10));
+            //Greenfoot.setWorld(new GameWorld());
         }
         else if(Greenfoot.mouseClicked(instructionsButton)){
             clickSound.play();

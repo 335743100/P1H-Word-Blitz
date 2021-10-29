@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class EndScreen extends World
 {
     private GreenfootImage background;
-    private static final int WIDTH = GameWorld.WIDTH;
-    private static final int HEIGHT = GameWorld.HEIGHT;
+    private static int WIDTH = 800;
+    private static int HEIGHT = 500;
     public static final Color bgColor = new Color(52, 232, 235);
     
     private Button returnButton;

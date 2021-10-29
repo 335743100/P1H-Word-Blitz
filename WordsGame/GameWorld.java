@@ -10,10 +10,10 @@ import java.lang.Math;
  * @author Jaylen Cheung
  * @version 0.0.3
  */
-public class GameWorld extends World {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 500;
-    private static Color BACKGROUND_COLOR = new Color(52, 232, 235);
+public abstract class GameWorld extends World {
+    private static int WIDTH = 800;
+    private static int HEIGHT = 500;
+    private static Color BACKGROUND_COLOR = new Color(207, 185, 151);
     
     // Word bank
     private ArrayList<String> nouns;
@@ -24,10 +24,6 @@ public class GameWorld extends World {
     // Box of words to display
     private WordBox wordBox;
     private CorrectWordOverlay correctWordOverlay = new CorrectWordOverlay();
-    
-    //timebar and how much time the player starts with in seconds
-    private StatBar timeBar;
-    private int time = 60;
     
     // The current word and character
     private String currentWord;
@@ -63,9 +59,6 @@ public class GameWorld extends World {
         addObject(wordBox, 400, 250);
         
         addObject(correctWordOverlay, 400, 250);
-        
-        timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
-        addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
         
         currentWord = playerWordQueue.remove();
         currentChar = Character.toString(currentWord.charAt(0));

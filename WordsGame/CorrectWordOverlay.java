@@ -36,4 +36,3 @@ public class CorrectWordOverlay extends Actor
         setImage(display);
     }
 }
-
