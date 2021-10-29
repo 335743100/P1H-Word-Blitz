@@ -50,7 +50,7 @@ public class MainMenu extends World
         if(Greenfoot.mouseClicked(startButton)){
             //menuMusic.stop();
             clickSound.play();
-            //Greenfoot.setWorld(new GameWorld());
+            Greenfoot.setWorld(new GameWorld(10));
         }
         else if(Greenfoot.mouseClicked(instructionsButton)){
             clickSound.play();
