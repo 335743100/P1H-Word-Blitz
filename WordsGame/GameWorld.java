@@ -23,11 +23,15 @@ public class GameWorld extends World {
     
     // Box of words to display
     private WordBox wordBox;
-    private CorrectWordOverlay correctWordOverlay = new CorrectWordOverlay();
+    private WordOverlay wordOverlay = new WordOverlay();
     
-    //timebar and how much time the player starts with in seconds
+    //timebar and how much time variables (360 = 1 second)
     private StatBar timeBar;
-    private int time = 60;
+    private int time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
+    
+    //score variables
+    public static int score = 0;
+    public static final int POINTS = 10;
     
     // The current word and character
     private String currentWord;
@@ -62,7 +66,7 @@ public class GameWorld extends World {
         wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
         addObject(wordBox, 400, 250);
         
-        addObject(correctWordOverlay, 400, 250);
+        addObject(wordOverlay, 400, 250);
         
         timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
         addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
@@ -71,22 +75,27 @@ public class GameWorld extends World {
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
+        
+        score = 0;
     }
     
     public void act() {
         if (Greenfoot.isKeyDown("space")) {
             if (currentChar.equals(" ")) {
-                handleWords();
+                checkWords();
             }
         } else if (Greenfoot.isKeyDown(currentChar)) {
-            handleWords();
+            checkWords();
         }
+        time--;
+        if(time == 0) Greenfoot.setWorld(new EndScreen());
+        timeBar.update(time);
     }
     
     /*
      * Handle the word box
      */
-    public void handleWords() {
+    public void checkWords() {
         playerInput += currentChar;
         if (playerInput.equals(currentWord)) {
             playerWordQueue.add(generateWords(1).get(0) + " ");
@@ -94,9 +103,12 @@ public class GameWorld extends World {
             currentWord = playerWordQueue.remove();
             playerInput = "";
             letterCount = 0;
+            time += timeBonus;
+            if(time > maxTime) time = maxTime;
+            score += POINTS;
         }
         currentChar = Character.toString(currentWord.charAt(letterCount));
-        correctWordOverlay.setWordBox(currentWord, letterCount);
+        wordOverlay.setWordBox(currentWord, letterCount);
         letterCount++;
     }
     
