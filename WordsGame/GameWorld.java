@@ -34,16 +34,17 @@ public class GameWorld extends World {
     public static final int POINTS = 10;
     private ScoreDisplay scoreDisplay;
     
-    // The current word and character
+    // The current word and character, and the repeated character
     private String currentWord;
     private String currentChar;
+    private String repeatedChar;
     
     //sound effects
     private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
     private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
     
     //boolean to keep track of key release
-    private boolean keyDown = false;
+    private boolean keyDown = false, keyReleased = false, spaceDown = false;
     
     // The queue of words to display
     private Queue<String> playerWordQueue;
@@ -91,9 +92,9 @@ public class GameWorld extends World {
     }
     
     public void act() {
-        if (keyDown != Greenfoot.isKeyDown("space")) {
-            keyDown = !keyDown;
-            if(!keyDown){
+        if (spaceDown != Greenfoot.isKeyDown("space")) {
+            spaceDown = !spaceDown;
+            if(!spaceDown){
                 if (currentChar.equals(" ")) {
                     checkWords();
                     correctSound.play();
@@ -102,7 +103,19 @@ public class GameWorld extends World {
                     wrongSound.play();
                 }
             }
-        } else if (Greenfoot.isKeyDown(currentChar)) {
+        }
+        else if(keyDown != Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && !keyReleased){
+            keyDown = !keyDown;
+            if(!keyDown){
+                keyReleased = true;
+            }
+        }
+        else if(Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && keyReleased){
+            checkWords();
+            keyReleased = false;
+            repeatedChar = null;
+        }
+        else if(Greenfoot.isKeyDown(currentChar) && !currentChar.equals(repeatedChar)){
             checkWords();
         }
         time--;
@@ -125,6 +138,9 @@ public class GameWorld extends World {
             if(time > maxTime) time = maxTime;
             score += POINTS;
             scoreDisplay.update(score);
+        }
+        if(currentChar.equals(Character.toString(currentWord.charAt(letterCount)))){
+            repeatedChar = currentChar;
         }
         currentChar = Character.toString(currentWord.charAt(letterCount));
         wordOverlay.setWordBox(currentWord, letterCount);
