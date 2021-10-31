@@ -32,6 +32,7 @@ public class GameWorld extends World {
     //score variables
     public static int score = 0;
     public static final int POINTS = 10;
+    private ScoreDisplay scoreDisplay;
     
     // The current word and character
     private String currentWord;
@@ -75,15 +76,18 @@ public class GameWorld extends World {
         
         addObject(wordOverlay, 400, 250);
         
+        score = 0;
+        
         timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
         addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
+        
+        scoreDisplay = new ScoreDisplay(score);
+        addObject(scoreDisplay, scoreDisplay.SCORE_DISPLAY_WIDTH / 2, scoreDisplay.SCORE_DISPLAY_HEIGHT / 2);
         
         currentWord = playerWordQueue.remove();
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
-        
-        score = 0;
     }
     
     public void act() {
@@ -120,6 +124,7 @@ public class GameWorld extends World {
             time += timeBonus;
             if(time > maxTime) time = maxTime;
             score += POINTS;
+            scoreDisplay.update(score);
         }
         currentChar = Character.toString(currentWord.charAt(letterCount));
         wordOverlay.setWordBox(currentWord, letterCount);
