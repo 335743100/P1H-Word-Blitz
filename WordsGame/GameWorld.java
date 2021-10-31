@@ -37,6 +37,13 @@ public class GameWorld extends World {
     private String currentWord;
     private String currentChar;
     
+    //sound effects
+    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
+    private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
+    
+    //boolean to keep track of key release
+    private boolean keyDown = false;
+    
     // The queue of words to display
     private Queue<String> playerWordQueue;
     // The letters that the player has typed. Resets on new word
@@ -80,9 +87,16 @@ public class GameWorld extends World {
     }
     
     public void act() {
-        if (Greenfoot.isKeyDown("space")) {
-            if (currentChar.equals(" ")) {
-                checkWords();
+        if (keyDown != Greenfoot.isKeyDown("space")) {
+            keyDown = !keyDown;
+            if(!keyDown){
+                if (currentChar.equals(" ")) {
+                    checkWords();
+                    correctSound.play();
+                }
+                else{
+                    wrongSound.play();
+                }
             }
         } else if (Greenfoot.isKeyDown(currentChar)) {
             checkWords();
