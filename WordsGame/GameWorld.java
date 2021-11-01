@@ -96,10 +96,11 @@ public class GameWorld extends World {
             spaceDown = !spaceDown;
             if(!spaceDown){
                 if (currentChar.equals(" ")) {
-                    checkWords();
+                    checkWords(true);
                     correctSound.play();
                 }
                 else{
+                    checkWords(true);
                     wrongSound.play();
                 }
             }
@@ -111,33 +112,38 @@ public class GameWorld extends World {
             }
         }
         else if(Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && keyReleased){
-            checkWords();
+            checkWords(false);
             keyReleased = false;
             repeatedChar = null;
         }
         else if(Greenfoot.isKeyDown(currentChar) && !currentChar.equals(repeatedChar)){
-            checkWords();
+            checkWords(false);
         }
         time--;
-        if(time == 0) Greenfoot.setWorld(new EndScreen());
+        if(time <= 0) Greenfoot.setWorld(new EndScreen());
         timeBar.update(time);
     }
     
     /*
      * Handle the word box
      */
-    public void checkWords() {
+    public void checkWords(boolean enter) {
         playerInput += currentChar;
-        if (playerInput.equals(currentWord)) {
+        if(enter){
+            if (playerInput.equals(currentWord)) {
+                time += timeBonus;
+                if(time > maxTime) time = maxTime;
+                score += POINTS;
+                scoreDisplay.update(score);
+            }
+            else{
+                time -= timePenalty;
+            }
             playerWordQueue.add(generateWords(1).get(0) + " ");
             wordBox.setWordBox(new LinkedList<String>(playerWordQueue));
             currentWord = playerWordQueue.remove();
             playerInput = "";
             letterCount = 0;
-            time += timeBonus;
-            if(time > maxTime) time = maxTime;
-            score += POINTS;
-            scoreDisplay.update(score);
         }
         if(currentChar.equals(Character.toString(currentWord.charAt(letterCount)))){
             repeatedChar = currentChar;
@@ -163,5 +169,4 @@ public class GameWorld extends World {
         }
         return list;
     }
-    
 }
