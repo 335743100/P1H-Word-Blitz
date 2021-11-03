@@ -23,14 +23,16 @@ public class GameWorld extends World {
     
     // Box of words to display
     private WordBox wordBox;
-    private WordOverlay wordOverlay = new WordOverlay();
+    private CorrectWordOverlay correctWordOverlay = new CorrectWordOverlay();
+    private WrongWordOverlay wrongWordOverlay = new WrongWordOverlay();
+    private CheckInput checkInput = new CheckInput();
     
     //timebar and how much time variables (360 = 1 second)
     private StatBar timeBar;
-    private int time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
+    private int time, MAX_TIME = 600, TIME_BONUS = 120, TIME_PENALTY = 30;
     
     //score variables
-    public static int score = 0;
+    public static int score;
     public static final int POINTS = 10;
     private ScoreDisplay scoreDisplay;
     
@@ -39,12 +41,16 @@ public class GameWorld extends World {
     private String currentChar;
     private String repeatedChar;
     
+    //String to keep track of what key the user typed
+    private String key;
+    private String punc = "`~!@#$%^&*()-_=+[{]}|\\;:'\",<.>/?";
+    
     //sound effects
     private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
     private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
     
     //boolean to keep track of key release
-    private boolean keyDown = false, keyReleased = false, spaceDown = false;
+    private boolean keyDown, spaceDown;
     
     // The queue of words to display
     private Queue<String> playerWordQueue;
@@ -52,6 +58,7 @@ public class GameWorld extends World {
     private String playerInput;
     // Number of letters the player has typed. Resets on new word
     private int letterCount;
+    private int numWrong;
     /**
      * Constructor for objects of class MyWorld.
      */
@@ -75,9 +82,19 @@ public class GameWorld extends World {
         wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
         addObject(wordBox, 400, 250);
         
-        addObject(wordOverlay, 400, 250);
+        addObject(correctWordOverlay, 400, 250);
+        addObject(wrongWordOverlay, 400, 250);
+        addObject(checkInput, 500, 300);
+        
+        key = null;
+        keyDown = false;
+        spaceDown = false;
+        
+        time = MAX_TIME;
         
         score = 0;
+        
+        numWrong = 0;
         
         timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
         addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
@@ -86,38 +103,24 @@ public class GameWorld extends World {
         addObject(scoreDisplay, scoreDisplay.SCORE_DISPLAY_WIDTH / 2, scoreDisplay.SCORE_DISPLAY_HEIGHT / 2);
         
         currentWord = playerWordQueue.remove();
-        currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
-        letterCount = 1;
     }
     
     public void act() {
         if (spaceDown != Greenfoot.isKeyDown("space")) {
             spaceDown = !spaceDown;
             if(!spaceDown){
-                if (currentChar.equals(" ")) {
-                    checkWords(true);
-                    correctSound.play();
-                }
-                else{
-                    checkWords(true);
-                    wrongSound.play();
-                }
+                checkWords(true, " ");
             }
         }
-        else if(keyDown != Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && !keyReleased){
-            keyDown = !keyDown;
-            if(!keyDown){
-                keyReleased = true;
+        else{
+            if(key == null || key.equals("space")) key = Greenfoot.getKey();
+            if(key != null && !key.equals("space")){
+                if((key.length() == 1 && Character.isLetter(key.charAt(0))) || key.equals("backspace")){ //check other typeable characters
+                    checkWords(false, key);
+                }
+                key = null;
             }
-        }
-        else if(Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && keyReleased){
-            checkWords(false);
-            keyReleased = false;
-            repeatedChar = null;
-        }
-        else if(Greenfoot.isKeyDown(currentChar) && !currentChar.equals(repeatedChar)){
-            checkWords(false);
         }
         time--;
         if(time <= 0) Greenfoot.setWorld(new EndScreen());
@@ -127,30 +130,46 @@ public class GameWorld extends World {
     /*
      * Handle the word box
      */
-    public void checkWords(boolean enter) {
-        playerInput += currentChar;
+    public void checkWords(boolean enter, String key) {
+        numWrong = 0;
+        if(playerInput.length() < currentWord.length()){
+            if(key.equals("backspace") && playerInput.length() > 0) playerInput = playerInput.substring(0, playerInput.length() - 1);
+            else if(playerInput.length() < currentWord.length() - 1 && !key.equals("backspace"))playerInput += key;
+            else if(key.equals(" ")) playerInput += key;
+        }
+        for(int i = 0; i < playerInput.length(); i++){
+            if(!Character.toString(playerInput.charAt(i)).equalsIgnoreCase(Character.toString(currentWord.charAt(i)))){
+                numWrong = playerInput.length() - i;
+                break;
+            }
+        }
         if(enter){
             if (playerInput.equals(currentWord)) {
-                time += timeBonus;
-                if(time > maxTime) time = maxTime;
+                time += TIME_BONUS;
+                if(time > MAX_TIME) time = MAX_TIME;
                 score += POINTS;
                 scoreDisplay.update(score);
+                correctSound.play(); //make multiple play at same time
             }
             else{
-                time -= timePenalty;
+                time -= TIME_PENALTY;
+                wrongSound.play();
             }
             playerWordQueue.add(generateWords(1).get(0) + " ");
             wordBox.setWordBox(new LinkedList<String>(playerWordQueue));
             currentWord = playerWordQueue.remove();
             playerInput = "";
-            letterCount = 0;
+            correctWordOverlay.setCorrectOverlay("", 0, true);
+            wrongWordOverlay.setWrongOverlay("", 0, 0, true);
         }
-        if(currentChar.equals(Character.toString(currentWord.charAt(letterCount)))){
-            repeatedChar = currentChar;
+        else if(numWrong == 0){
+            correctWordOverlay.setCorrectOverlay(currentWord, playerInput.length(), false);
+            wrongWordOverlay.setWrongOverlay("", playerInput.length() - numWrong, numWrong, false);
         }
-        currentChar = Character.toString(currentWord.charAt(letterCount));
-        wordOverlay.setWordBox(currentWord, letterCount);
-        letterCount++;
+        else if(numWrong > 0){
+            wrongWordOverlay.setWrongOverlay(currentWord, playerInput.length() - numWrong, numWrong, false);
+        }
+        //checkInput.drawInput(playerInput);
     }
     
     /*
