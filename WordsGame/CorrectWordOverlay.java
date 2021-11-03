@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class CorrectWordOverlay extends Actor
 {
-    public static Font textFont = new Font("Courier New", false, false, 20);
+    public static Font textFont = new Font("Courier New", true, false, 20);
     public static int WIDTH = 500;
     public static int HEIGHT = 300;
     
