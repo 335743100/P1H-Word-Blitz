@@ -26,7 +26,16 @@ public class MainMenu extends World
     private MouseInfo mouse;
     
     private enum Difficulty {
-        EASY, NORMAL, HARD, NOT_SET
+        EASY (0.5f),
+        NORMAL (1.5f),
+        HARD (2.5f),
+        NOT_SET(0.5f);
+        
+        public final float speed;
+        
+        private Difficulty(float speed) {
+            this.speed = speed;
+        }
     }
     private Difficulty currentDifficulty = Difficulty.NOT_SET;
     
@@ -59,9 +68,8 @@ public class MainMenu extends World
     public void act(){
         mouse = Greenfoot.getMouseInfo();
         if(Greenfoot.mouseClicked(startButton)){
-            //menuMusic.stop();
             clickSound.play();
-            Greenfoot.setWorld(new GameWorld(10));
+            Greenfoot.setWorld(new GameWorld(currentDifficulty.speed));
         }
         else if (Greenfoot.mouseClicked(difficultyButton)){
             clickSound.play();
@@ -73,10 +81,8 @@ public class MainMenu extends World
         }
     }
     
-    public void changeDifficulty()
-    {
-        switch(currentDifficulty)
-        {
+    public void changeDifficulty() {
+        switch(currentDifficulty) {
             case EASY:
                 difficultyButton.update("Normal");
                 difficultyButton.changeColor(Color.BLACK, Color.YELLOW);

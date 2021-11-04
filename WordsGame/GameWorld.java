@@ -28,7 +28,7 @@ public class GameWorld extends World {
     
     //timebar and how much time variables (360 = 1 second)
     private StatBar timeBar;
-    private int time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
+    private float time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
     
     //score variables
     public static int score = 0;
@@ -53,11 +53,13 @@ public class GameWorld extends World {
     private String playerInput;
     // Number of letters the player has typed. Resets on new word
     private int letterCount;
+    // How fast the timer should go down
+    private float speed;
     /**
      * Constructor for objects of class MyWorld.
      * 
      */
-    public GameWorld(int speed) {
+    public GameWorld(float speed) {
         super(WIDTH, HEIGHT, 1);
         GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
         background.setColor(BACKGROUND_COLOR);
@@ -82,7 +84,7 @@ public class GameWorld extends World {
         
         score = 0;
         
-        timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
+        timeBar = new StatBar((int)time, (int)time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
         addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
         
         scoreDisplay = new ScoreDisplay(score);
@@ -92,6 +94,8 @@ public class GameWorld extends World {
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
+        
+        this.speed = speed;
     }
     
     public void act() {
@@ -122,9 +126,9 @@ public class GameWorld extends World {
         else if(Greenfoot.isKeyDown(currentChar) && !currentChar.equals(repeatedChar)){
             checkWords(false);
         }
-        time--;
+        time -= this.speed;
         if(time <= 0) Greenfoot.setWorld(new EndScreen());
-        timeBar.update(time);
+        timeBar.update((int)time);
     }
     
     /*
