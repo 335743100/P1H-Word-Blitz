@@ -10,23 +10,42 @@ import java.util.Arrays;
  *  
  * @author Jaylen Cheung, Vaughn Chan
  * @version 0.0.2
- */
+ */ 
 public class GameWorld extends World {
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 500;
+    private static Color BACKGROUND_COLOR = new Color(52, 232, 235);
     
-    public static int WORLD_HEIGHT = 800;
-    public static int WORLD_WIDTH = 600;
-    
-    // How fast the words drop
-    private int speed;
-    
+    // Word bank
     private ArrayList<String> nouns;
     private ArrayList<String> verbs;
     private ArrayList<String> adjectives;
     private ArrayList<ArrayList<String>> listOfWordTypes;
     
-    // The current word and character
+    // Box of words to display
+    private WordBox wordBox;
+    private WordOverlay wordOverlay = new WordOverlay();
+    
+    //timebar and how much time variables (360 = 1 second)
+    private StatBar timeBar;
+    private int time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
+    
+    //score variables
+    public static int score = 0;
+    public static final int POINTS = 10;
+    private ScoreDisplay scoreDisplay;
+    
+    // The current word and character, and the repeated character
     private String currentWord;
     private String currentChar;
+    private String repeatedChar;
+    
+    //sound effects
+    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
+    private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
+    
+    //boolean to keep track of key release
+    private boolean keyDown = false, keyReleased = false, spaceDown = false;
     
     // The queue of words to display
     private Queue<String> playerWordQueue;
@@ -38,47 +57,109 @@ public class GameWorld extends World {
      * Constructor for objects of class MyWorld.
      * 
      */
-    public GameWorld(int speed) {    
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1);
+    public GameWorld(int speed) {
+        super(WIDTH, HEIGHT, 1);
+        GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
+        background.setColor(BACKGROUND_COLOR);
+        background.fill();
+        setBackground(background);
+        
         listOfWordTypes = ReadWordFiles.readWordFiles();
         nouns = listOfWordTypes.get(0);
         verbs = listOfWordTypes.get(1);
         adjectives = listOfWordTypes.get(2);
         
         playerWordQueue = new LinkedList<String>();
-        for (String i : generateWords(10)) {
-            playerWordQueue.add(i);
+
+        for (String i : generateWords(20)) {
+            playerWordQueue.add(i + " ");
         }
+        // White box to display the words
+        wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
+        addObject(wordBox, 400, 250);
+        
+        addObject(wordOverlay, 400, 250);
+        
+        score = 0;
+        
+        timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
+        addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
+        
+        scoreDisplay = new ScoreDisplay(score);
+        addObject(scoreDisplay, scoreDisplay.SCORE_DISPLAY_WIDTH / 2, scoreDisplay.SCORE_DISPLAY_HEIGHT / 2);
+        
         currentWord = playerWordQueue.remove();
         currentChar = Character.toString(currentWord.charAt(0));
         playerInput = "";
         letterCount = 1;
-        System.out.println(currentWord);
-        
-        // Create score text
-        Text scoreText = new Text(this, 110, 50, "Score:");
-        
-        // TODO: Implement the words dropping and use this as a speed multiplier
-        this.speed = speed;
     }
     
     public void act() {
-        if (Greenfoot.isKeyDown(currentChar)) {
-            playerInput += currentChar;
-            if (playerInput.equals(currentWord)) {
-                playerWordQueue.add(generateWords(1).get(0));
-                currentWord = playerWordQueue.remove();
-                playerInput = "";
-                letterCount = 0;
-                System.out.println(Arrays.toString(playerWordQueue.toArray()));
-                System.out.println(currentWord);
+        if (spaceDown != Greenfoot.isKeyDown("space")) {
+            spaceDown = !spaceDown;
+            if(!spaceDown){
+                if (currentChar.equals(" ")) {
+                    checkWords(true);
+                    correctSound.play();
+                }
+                else{
+                    checkWords(true);
+                    wrongSound.play();
+                }
             }
-            currentChar = Character.toString(currentWord.charAt(letterCount));
-            letterCount++;
-            System.out.println(playerInput);
         }
+        else if(keyDown != Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && !keyReleased){
+            keyDown = !keyDown;
+            if(!keyDown){
+                keyReleased = true;
+            }
+        }
+        else if(Greenfoot.isKeyDown(currentChar) && currentChar.equals(repeatedChar) && keyReleased){
+            checkWords(false);
+            keyReleased = false;
+            repeatedChar = null;
+        }
+        else if(Greenfoot.isKeyDown(currentChar) && !currentChar.equals(repeatedChar)){
+            checkWords(false);
+        }
+        time--;
+        if(time <= 0) Greenfoot.setWorld(new EndScreen());
+        timeBar.update(time);
     }
     
+    /*
+     * Handle the word box
+     */
+    public void checkWords(boolean enter) {
+        playerInput += currentChar;
+        if(enter){
+            if (playerInput.equals(currentWord)) {
+                time += timeBonus;
+                if(time > maxTime) time = maxTime;
+                score += POINTS;
+                scoreDisplay.update(score);
+            }
+            else{
+                time -= timePenalty;
+            }
+            playerWordQueue.add(generateWords(1).get(0) + " ");
+            wordBox.setWordBox(new LinkedList<String>(playerWordQueue));
+            currentWord = playerWordQueue.remove();
+            playerInput = "";
+            letterCount = 0;
+        }
+        if(currentChar.equals(Character.toString(currentWord.charAt(letterCount)))){
+            repeatedChar = currentChar;
+        }
+        currentChar = Character.toString(currentWord.charAt(letterCount));
+        wordOverlay.setWordBox(currentWord, letterCount);
+        letterCount++;
+    }
+    
+    /*
+     * Generate a random ArrayList of words
+     * @param amount Amount of words to generate
+     */
     public ArrayList<String> generateWords(int amount) {
         ArrayList<String> list = new ArrayList<String>();
         // Choose which list randomly (nouns, verbs, adjectives)
@@ -91,5 +172,4 @@ public class GameWorld extends World {
         }
         return list;
     }
-    
 }
