@@ -21,9 +21,14 @@ public class MainMenu extends World
 
     private String title = "Word Blitz";
     
-    private Button startButton, instructionsButton;
+    private Button startButton, instructionsButton, difficultyButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private MouseInfo mouse;
+    
+    private enum Difficulty {
+        EASY, NORMAL, HARD, NOT_SET
+    }
+    private Difficulty currentDifficulty = Difficulty.NOT_SET;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -42,9 +47,13 @@ public class MainMenu extends World
         setBackground(background);
         
         startButton = new Button("Start Game", Color.BLACK, Color.WHITE, highscoreColor);
-        addObject(startButton, WIDTH / 2, HEIGHT * 3 / 5);
+        addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3.0 / 5));
+        
+        difficultyButton = new Button("Difficulty", Color.BLACK, Color.WHITE, highscoreColor);
+        addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
+        
         instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, highscoreColor);
-        addObject(instructionsButton, WIDTH / 2, HEIGHT * 4 / 5);    
+        addObject(instructionsButton, WIDTH / 2, (int)(HEIGHT * 4.4 / 5));
     }
     
     public void act(){
@@ -54,9 +63,40 @@ public class MainMenu extends World
             clickSound.play();
             Greenfoot.setWorld(new GameWorld(10));
         }
+        else if (Greenfoot.mouseClicked(difficultyButton)){
+            clickSound.play();
+            changeDifficulty();
+        }
         else if(Greenfoot.mouseClicked(instructionsButton)){
             clickSound.play();
             Greenfoot.setWorld(new InstructionsMenu());
+        }
+    }
+    
+    public void changeDifficulty()
+    {
+        switch(currentDifficulty)
+        {
+            case EASY:
+                difficultyButton.update("Normal");
+                difficultyButton.changeColor(Color.BLACK, Color.YELLOW);
+                currentDifficulty = Difficulty.NORMAL;
+                break;
+            case NORMAL:
+                difficultyButton.update("Hard");
+                currentDifficulty = Difficulty.HARD;
+                difficultyButton.changeColor(Color.BLACK, Color.RED);
+                break;
+            case HARD:
+                difficultyButton.update("Easy");
+                currentDifficulty = Difficulty.EASY;
+                difficultyButton.changeColor(Color.BLACK, Color.GREEN);
+                break;
+            default:
+                difficultyButton.update("Easy");
+                currentDifficulty = Difficulty.EASY;
+                difficultyButton.changeColor(Color.BLACK, Color.GREEN);
+                break;
         }
     }
 }

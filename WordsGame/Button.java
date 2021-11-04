@@ -64,6 +64,13 @@ public class Button extends Actor
         this.setImage(image);
     }
     
+    public void changeColor(Color labelColor, Color bgColor)
+    {
+        this.labelColor = labelColor;
+        this.bgColor = bgColor;
+        update(this.label);
+    }
+    
     //method to draw the button with the given parameters
     private void drawButton(){
         image.clear();
