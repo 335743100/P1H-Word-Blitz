@@ -1,3 +1,4 @@
+<<<<<<< HEAD:WordsGame/CorrectWordOverlay.ctxt
 #BlueJ class context
 comment0.target=CorrectWordOverlay
 comment0.text=\r\n\ Displays\ the\ letters\ the\ player\ has\ typed\ in\ another\ colour\ on\ top\ of\ the\ \r\n\ word\ bank.\r\n\ \r\n\ @author\ Jaylen\ Cheung\r\n\ @version\ 1.0.0\r\n
@@ -7,3 +8,14 @@ comment2.params=word\ numCorrect\ clear
 comment2.target=void\ setCorrectOverlay(java.lang.String,\ int,\ boolean)
 comment2.text=\r\n\ Write\ letters\ in\ green\ text\ over\ the\ existing\ ones\ to\ show\ which\ \r\n\ letters\ have\ been\ typed\r\n\ @param\ word\ Current\ word\r\n\ @param\ numCompleteChars\ Number\ of\ correct\ chars\ the\ player\ has\ typed\r\n
 numComments=3
+=======
+#BlueJ class context
+comment0.target=WordOverlay
+comment0.text=\n\ Displays\ the\ letters\ the\ player\ has\ typed\ in\ another\ colour\ on\ top\ of\ the\ \n\ word\ bank.\n\ \n\ @author\ Jaylen\ Cheung\n\ @version\ 1.0.0\n
+comment1.params=
+comment1.target=WordOverlay()
+comment2.params=word\ numCorrectChars
+comment2.target=void\ setWordBox(java.lang.String,\ int)
+comment2.text=\n\ Write\ letters\ in\ green\ text\ over\ the\ existing\ ones\ to\ show\ which\ \n\ letters\ have\ been\ typed\n\ @param\ word\ Current\ word\n\ @param\ numCompleteChars\ Number\ of\ correct\ chars\ the\ player\ has\ typed\n
+numComments=3
+>>>>>>> origin/difficulty-selection:WordsGame/WordOverlay.ctxt

@@ -41,7 +41,7 @@ public class ScoreDisplay extends Actor
         //updating the score and the display
         this.score = score;
         display = "SCORE: " + this.score;
-        wpm = 60*(score/10)/(gameTime/60);
+        wpm = 60*(score/5)/(gameTime/60);
         display += " WPM: " + wpm;
         this.accuracy = (int) Math.round((1.0*correct / (correct+incorrect)) * 100);
         display += " ACCURACY: " + this.accuracy + "%";

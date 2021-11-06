@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=WordBox
-comment0.text=\r\n\ Displays\ all\ the\ current\ letters\ in\ the\ word\ queue.\r\n\ \r\n\ @author\ Jaylen\ Cheung\r\n\ @version\ 1.0.0\r\n
+comment0.text=\n\ Displays\ all\ the\ current\ letters\ in\ the\ word\ queue.\n\ \n\ @author\ Jaylen\ Cheung\n\ @version\ 1.0.0\n
 comment1.params=queue
 comment1.target=WordBox(java.util.Queue)
 comment2.params=queue
 comment2.target=void\ setWordBox(java.util.Queue)
-comment2.text=\r\n\ Update\ the\ word\ box\ with\ new\ words\r\n\ @param\ queue\ Queue\ of\ words\r\n\ @param\ numCompleteChars\ Number\ of\ correct\ chars\ the\ player\ has\ type\r\n
+comment2.text=\n\ Update\ the\ word\ box\ with\ new\ words\n\ @param\ queue\ Queue\ of\ words\n\ @param\ numCompleteChars\ Number\ of\ correct\ chars\ the\ player\ has\ type\n
 numComments=3

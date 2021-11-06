@@ -3,13 +3,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.Math;
+import java.util.Arrays;
 
 /**
  * Template for the levels to follow.
  *  
- * @author Jaylen Cheung
- * @version 0.0.3
- */
+ * @author Jaylen Cheung, Vaughn Chan
+ * @version 0.0.2
+ */ 
 public class GameWorld extends World {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 500;
@@ -29,7 +30,7 @@ public class GameWorld extends World {
     
     //timebar and how much time variables (360 = 1 second)
     private StatBar timeBar;
-    private int time, MAX_TIME = 600, TIME_BONUS = 120, TIME_PENALTY = 30;
+    private float time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
     
     //score variables
     public static int score;
@@ -67,10 +68,15 @@ public class GameWorld extends World {
     // accuracy
     private int totalWrongChars;
     private int totalRightChars;
+
+    // How fast the timer should go down
+    private float speed;
+
     /**
      * Constructor for objects of class MyWorld.
+     * 
      */
-    public GameWorld(int speed) {
+    public GameWorld(float speed) {
         super(WIDTH, HEIGHT, 1);
         GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
         background.setColor(BACKGROUND_COLOR);
@@ -83,6 +89,7 @@ public class GameWorld extends World {
         adjectives = listOfWordTypes.get(2);
         
         playerWordQueue = new LinkedList<String>();
+
         for (String i : generateWords(20)) {
             playerWordQueue.add(i + " ");
         }
@@ -98,13 +105,12 @@ public class GameWorld extends World {
         keyDown = false;
         spaceDown = false;
         
-        time = MAX_TIME;
-        
+        time = maxTime;
         score = 0;
-        
         numWrong = 0;
         
-        timeBar = new StatBar(time, time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
+        timeBar = new StatBar((int)time, (int)time, WIDTH, HEIGHT / 20, 0, Color.GREEN, Color.WHITE, false, Color.BLACK, HEIGHT / 100);
+
         addObject(timeBar, WIDTH / 2, HEIGHT - HEIGHT / 40);
         
         scoreDisplay = new ScoreDisplay(score);
@@ -112,11 +118,13 @@ public class GameWorld extends World {
         
         currentWord = playerWordQueue.remove();
         playerInput = "";
-        
         gameTime = 0;
         
         totalRightChars = 0;
         totalWrongChars = 0;
+        letterCount = 1;
+        
+        this.speed = speed;
     }
     
     public void act() {
@@ -135,9 +143,11 @@ public class GameWorld extends World {
                 key = null;
             }
         }
-        time--;
+        
+        time -= this.speed;
         if(time <= 0) Greenfoot.setWorld(new EndScreen());
-        timeBar.update(time);
+        timeBar.update((int)time);
+        
         gameTime++;
     }
     
@@ -159,14 +169,14 @@ public class GameWorld extends World {
         }
         if(enter){
             if (playerInput.equals(currentWord)) {
-                time += TIME_BONUS;
-                if(time > MAX_TIME) time = MAX_TIME;
+                time += timeBonus;
+                if(time > maxTime) time = maxTime;
                 score += POINTS;
                 totalRightChars++;
                 correctSound.play(); //make multiple play at same time
             }
             else{
-                time -= TIME_PENALTY;
+                time -= timePenalty;
                 wrongSound.play();
                 totalWrongChars++;
             }
