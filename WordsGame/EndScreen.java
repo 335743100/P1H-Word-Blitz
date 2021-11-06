@@ -15,9 +15,10 @@ public class EndScreen extends World
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "GAME OVER";
-    public static final Color scoreColor = new Color(245, 236, 76);
+    public static final Color scoreColor = new Color(0, 0, 255);
     public static final Font scoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String score;
+    private String highscore = "NEW HIGHSCORE!";
     
     private Button returnButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
@@ -41,9 +42,29 @@ public class EndScreen extends World
         background.setColor(scoreColor);
         background.setFont(scoreFont);
         background.drawString(score, (getWidth() - (int)(score.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 3);
-        setBackground(background);
+        if(/* game speed == easy speed */ GameWorld.score > MainMenu.user.getInt(0)){
+            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+            MainMenu.user.setInt(0, GameWorld.score);
+            MainMenu.user.store();
+        }
+        else if(/* game speed == normal speed */ GameWorld.score > MainMenu.user.getInt(1)){
+            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+            MainMenu.user.setInt(1, GameWorld.score);
+            MainMenu.user.store();
+        }
+        else if(/* game speed == hard speed */ GameWorld.score > MainMenu.user.getInt(2)){
+            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+            MainMenu.user.setInt(2, GameWorld.score);
+            MainMenu.user.store();
+        }
+        //MainMenu.user.setInt(0, 0);
+        //MainMenu.user.setInt(1, 0);
+        //MainMenu.user.setInt(2, 0);
+        //MainMenu.user.store();
+        //uncomment the four lines above to reset the user's highscore (must play a round to reset)
+        setBackground(background);        
         
-        returnButton = new Button("Return", Color.BLACK, Color.WHITE, scoreColor);
+        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE);
         addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     

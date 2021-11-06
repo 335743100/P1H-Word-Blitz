@@ -13,7 +13,7 @@ public class ScoreDisplay extends Actor
     private GreenfootImage image;
     public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH;
     public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT / 11;
-    public static final Color scoreColor = new Color(245, 236, 76);
+    public static final Color scoreColor = new Color(0, 0, 255);
     public static final Font scoreFont = MainMenu.highscoreFont;
     
     //declaring instance variables
@@ -41,9 +41,9 @@ public class ScoreDisplay extends Actor
         //updating the score and the display
         this.score = score;
         display = "SCORE: " + this.score;
-        wpm = 60*(score/5)/(gameTime/60);
+        if(gameTime / 60 != 0) wpm = 60*(score/5)/(gameTime/60);
         display += " WPM: " + wpm;
-        this.accuracy = (int) Math.round((1.0*correct / (correct+incorrect)) * 100);
+        this.accuracy = (int) Math.round((1.0*correct / (correct + incorrect)) * 100);
         display += " ACCURACY: " + this.accuracy + "%";
         drawScoreDisplay();
         setImage(image);

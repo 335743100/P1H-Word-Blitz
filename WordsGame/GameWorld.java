@@ -33,7 +33,7 @@ public class GameWorld extends World {
     private float time = 300, maxTime = 300, timeBonus = 120, timePenalty = 30;
     
     //score variables
-    public static int score;
+    public static int score = 0;
     public static final int POINTS = 10;
     private ScoreDisplay scoreDisplay;
     
