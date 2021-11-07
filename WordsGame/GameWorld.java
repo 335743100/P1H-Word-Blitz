@@ -47,8 +47,10 @@ public class GameWorld extends World {
     private String punc = "`~!@#$%^&*()-_=+[{]}|\\;:'\",<.>/?";
     
     //sound effects
-    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
     private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
+    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
+    private GreenfootSound[] correctSounds, wrongSounds;
+    private int correctSoundIndex, wrongSoundIndex;
     
     //boolean to keep track of key release
     private boolean keyDown, spaceDown;
@@ -101,6 +103,13 @@ public class GameWorld extends World {
         addObject(wrongWordOverlay, 400, 250);
         addObject(checkInput, 500, 300);
         
+        correctSoundIndex = 0;
+        correctSounds = new GreenfootSound[5];
+        for(int i = 0; i < correctSounds.length; i++) correctSounds[i] = new GreenfootSound("Correct.wav");
+        wrongSoundIndex = 0;
+        wrongSounds = new GreenfootSound[15];
+        for(int i = 0; i < wrongSounds.length; i++) wrongSounds[i] = new GreenfootSound("Wrong.wav");
+        
         key = null;
         keyDown = false;
         spaceDown = false;
@@ -137,7 +146,7 @@ public class GameWorld extends World {
         else{
             if(key == null || key.equals("space")) key = Greenfoot.getKey();
             if(key != null && !key.equals("space")){
-                if((key.length() == 1 && Character.isLetter(key.charAt(0))) || key.equals("backspace")){ //check other typeable characters
+                if((key.length() == 1 && Character.isLetter(key.charAt(0))) || key.equals("backspace") || key.equals("-")){ //check other typeable characters
                     checkWords(false, key);
                 }
                 key = null;
@@ -173,11 +182,15 @@ public class GameWorld extends World {
                 if(time > maxTime) time = maxTime;
                 score += POINTS;
                 totalRightChars++;
-                correctSound.play(); //make multiple play at same time
+                correctSounds[correctSoundIndex].play();
+                correctSoundIndex++;
+                if(correctSoundIndex >= correctSounds.length) correctSoundIndex = 0;
             }
             else{
                 time -= timePenalty;
-                wrongSound.play();
+                wrongSounds[wrongSoundIndex].play();
+                wrongSoundIndex++;
+                if(wrongSoundIndex >= wrongSounds.length) wrongSoundIndex = 0;
                 totalWrongChars++;
             }
             scoreDisplay.update(score, gameTime, totalRightChars, totalWrongChars);

@@ -23,6 +23,7 @@ public class MainMenu extends World
     
     private Button startButton, instructionsButton, difficultyButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
+    private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
     private MouseInfo mouse;
     
     public static UserInfo user;
@@ -58,21 +59,25 @@ public class MainMenu extends World
         background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 13);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.BLUE);
+        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3.0 / 5));
         
-        difficultyButton = new Button("Difficulty", Color.BLACK, Color.WHITE, Color.BLUE);
+        difficultyButton = new Button("Difficulty", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
         
-        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.BLUE);
+        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(instructionsButton, WIDTH / 2, (int)(HEIGHT * 4.4 / 5));
     }
     
     public void act(){
         mouse = Greenfoot.getMouseInfo();
-        if(Greenfoot.mouseClicked(startButton)){
+        if(Greenfoot.mouseClicked(startButton) && currentDifficulty != Difficulty.NOT_SET){
             clickSound.play();
             Greenfoot.setWorld(new GameWorld(currentDifficulty.speed));
+        }
+        else if(Greenfoot.mouseClicked(startButton) && currentDifficulty == Difficulty.NOT_SET){
+            errorSound.play();
+            difficultyButton.flash(30);
         }
         else if (Greenfoot.mouseClicked(difficultyButton)){
             clickSound.play();

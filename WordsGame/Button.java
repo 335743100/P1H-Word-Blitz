@@ -15,6 +15,7 @@ public class Button extends Actor
     private Color bgColor;
     private Color labelColor;
     private Color hoverColor;
+    private Color flashColor;
     private String label;
     public static Font labelFont = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
     
@@ -25,15 +26,18 @@ public class Button extends Actor
     //mouse tracking
     private MouseInfo mouse;
     private boolean hovering = false;
+    private boolean flashing = false;
+    private int duration;
     
-    public Button(String str, Color bgColor, Color labelColor, Color hoverColor){
+    public Button(String str, Color bgColor, Color labelColor, Color hoverColor, Color flashColor){
         image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons
         label = str;
         //setting the image for the button
         this.bgColor = bgColor;
         this.labelColor = labelColor;
         this.hoverColor = hoverColor;
-        drawButton();
+        this.flashColor = flashColor;
+        drawButton(flashing);
         setImage(image);
     }
     
@@ -47,20 +51,27 @@ public class Button extends Actor
                 moveSound.play();
                 soundPlayed = true;
             }
-            drawButton();
+            drawButton(flashing);
             setImage(image);
         }
         if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(this)){
             hovering = false;
             soundPlayed = false;
-            drawButton();
+            drawButton(flashing);
             setImage(image);
+        }
+        if(flashing){
+            if(duration == 0){
+                flashing = false;
+                drawButton(flashing);
+            }
+            else duration--;
         }
     }
     
     public void update(String label){
         this.label = label;
-        drawButton();
+        drawButton(flashing);
         this.setImage(image);
     }
     
@@ -71,8 +82,14 @@ public class Button extends Actor
         update(this.label);
     }
     
+    public void flash(int duration){
+        this.duration = duration;
+        flashing = true;
+        drawButton(flashing);
+    }
+    
     //method to draw the button with the given parameters
-    private void drawButton(){
+    private void drawButton(boolean flashing){
         image.clear();
         //drawing button
         image.setColor(bgColor);
@@ -80,7 +97,8 @@ public class Button extends Actor
         image.fillOval(0, image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.fillOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.fillOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
-        image.setColor(labelColor);
+        if(flashing) image.setColor(flashColor);
+        else image.setColor(labelColor);
         image.drawOval(0, 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(0, image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
@@ -88,7 +106,8 @@ public class Button extends Actor
         image.setColor(bgColor);
         image.fillRect((image.getWidth() - 1) / 20, 0, image.getWidth() - 1 - (image.getWidth() - 1) / 10, image.getHeight() - 1);
         image.fillRect(0, (image.getWidth() - 1) / 20, image.getWidth() - 1, image.getHeight() - 1 - (image.getWidth() - 1) / 10);
-        image.setColor(labelColor);
+        if(flashing) image.setColor(flashColor);
+        else image.setColor(labelColor);
         image.drawLine((image.getWidth() - 1) / 20, 0, image.getWidth() - 1- (image.getWidth() - 1) / 20, 0);
         image.drawLine((image.getWidth() - 1) / 20, image.getHeight() - 1, image.getWidth() - 1- (image.getWidth() - 1) / 20, image.getHeight() - 1);
         image.drawLine(0, (image.getWidth() - 1) / 20, 0, image.getHeight() - 1 - (image.getWidth() - 1) / 20);

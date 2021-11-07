@@ -64,7 +64,7 @@ public class EndScreen extends World
         //uncomment the four lines above to reset the user's highscore (must play a round to reset)
         setBackground(background);        
         
-        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE);
+        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     

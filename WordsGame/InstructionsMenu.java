@@ -48,7 +48,7 @@ public class InstructionsMenu extends World
         background.drawString(instruction4, (getWidth() - (int)(instruction4.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 5 / 6);
         setBackground(background);
         
-        backButton = new Button("Back", Color.BLACK, Color.WHITE, Color.BLUE);
+        backButton = new Button("Back", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(backButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     
