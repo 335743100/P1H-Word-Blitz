@@ -26,19 +26,7 @@ public class MainMenu extends World
     private MouseInfo mouse;
     
     public static UserInfo user;
-    
-    private enum Difficulty {
-        EASY (0.5f),
-        NORMAL (1.5f),
-        HARD (2.5f),
-        NOT_SET(0.5f);
-        
-        public final float speed;
-        
-        private Difficulty(float speed) {
-            this.speed = speed;
-        }
-    }
+
     private Difficulty currentDifficulty = Difficulty.NOT_SET;
     
     /**
@@ -102,21 +90,25 @@ public class MainMenu extends World
                 difficultyButton.update("Normal");
                 difficultyButton.changeColor(Color.BLACK, Color.YELLOW);
                 currentDifficulty = Difficulty.NORMAL;
+                currentDifficulty.gameDifficulty = Difficulty.NORMAL;
                 break;
             case NORMAL:
                 difficultyButton.update("Hard");
-                currentDifficulty = Difficulty.HARD;
                 difficultyButton.changeColor(Color.BLACK, Color.RED);
+                currentDifficulty = Difficulty.HARD;
+                currentDifficulty.gameDifficulty = Difficulty.HARD;
                 break;
             case HARD:
                 difficultyButton.update("Easy");
-                currentDifficulty = Difficulty.EASY;
                 difficultyButton.changeColor(Color.BLACK, Color.GREEN);
+                currentDifficulty = Difficulty.EASY;
+                currentDifficulty.gameDifficulty = Difficulty.EASY;
                 break;
             default:
                 difficultyButton.update("Easy");
                 currentDifficulty = Difficulty.EASY;
                 difficultyButton.changeColor(Color.BLACK, Color.GREEN);
+                currentDifficulty.gameDifficulty = Difficulty.EASY;
                 break;
         }
     }
