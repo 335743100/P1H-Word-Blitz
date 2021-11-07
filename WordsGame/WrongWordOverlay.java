@@ -26,7 +26,7 @@ public class WrongWordOverlay extends Actor
         }
         display.setColor(Color.RED);
         display.setFont(textFont);
-        display.drawString(displayString, 21 + (int)((numCorrect) * textFont.getSize() * 0.58), 20);
+        display.drawString(displayString, 20 + (int)((numCorrect) * textFont.getSize() * 0.6), 20);
         if(clear) display.clear();
         setImage(display);
         if(clear) display.clear();

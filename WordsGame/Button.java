@@ -88,6 +88,10 @@ public class Button extends Actor
         drawButton(flashing);
     }
     
+    public boolean isHovering(){
+        return hovering;
+    }
+    
     //method to draw the button with the given parameters
     private void drawButton(boolean flashing){
         image.clear();

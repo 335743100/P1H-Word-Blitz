@@ -53,7 +53,7 @@ public class InstructionsMenu extends World
     }
     
     public void act(){
-        if(Greenfoot.mouseClicked(backButton)){
+        if(Greenfoot.mouseClicked(backButton) || (backButton.isHovering() && Greenfoot.isKeyDown("space"))){
             //menuMusic.stop();
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());
