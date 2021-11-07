@@ -16,7 +16,7 @@ public class InstructionsMenu extends World
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Instructions";
-    public static final Color instructionsColor = new Color(245, 236, 76);
+    public static final Color instructionsColor = new Color(0, 0, 255);
     public static final Font instructionsFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String instruction1 = "Type the words as fast as you can.";
     private String instruction2 = "Speed and accuracy count!";
@@ -48,7 +48,7 @@ public class InstructionsMenu extends World
         background.drawString(instruction4, (getWidth() - (int)(instruction4.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 5 / 6);
         setBackground(background);
         
-        backButton = new Button("Back", Color.BLACK, Color.WHITE, instructionsColor);
+        backButton = new Button("Back", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         addObject(backButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     
