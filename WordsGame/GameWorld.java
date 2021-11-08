@@ -12,9 +12,9 @@ import java.util.Arrays;
  * @version 0.0.2
  */ 
 public class GameWorld extends World {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 500;
-    private static Color BACKGROUND_COLOR = new Color(52, 232, 235);
+    public static final int WIDTH = 850;
+    public static final int HEIGHT = 480;
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     
     // Word bank
     private ArrayList<String> nouns;
@@ -81,8 +81,7 @@ public class GameWorld extends World {
     public GameWorld(float speed) {
         super(WIDTH, HEIGHT, 1);
         GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(BACKGROUND_COLOR);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         setBackground(background);
         
         listOfWordTypes = ReadWordFiles.readWordFiles();

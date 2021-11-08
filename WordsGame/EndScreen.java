@@ -11,11 +11,11 @@ public class EndScreen extends World
     private GreenfootImage background;
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
-    public static final Color bgColor = new Color(52, 232, 235);
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "GAME OVER";
-    public static final Color scoreColor = new Color(0, 0, 255);
+    public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String score;
     private String highscore = "NEW HIGHSCORE!";
@@ -34,42 +34,39 @@ public class EndScreen extends World
         score = "SCORE: " + Integer.toString(GameWorld.score);
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(bgColor);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
         background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
         background.setColor(scoreColor);
         background.setFont(scoreFont);
         background.drawString(score, (getWidth() - (int)(score.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 3);
-        if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > MainMenu.user.getInt(0)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(0, GameWorld.score);
-            MainMenu.user.store();
+        if(UserInfo.isStorageAvailable()){
+            MainMenu.user = UserInfo.getMyInfo();
+            if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > MainMenu.user.getInt(0)){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+                MainMenu.user.setInt(0, GameWorld.score);
+                MainMenu.user.store();
+            }
+            else if(Difficulty.gameDifficulty == Difficulty.NORMAL && GameWorld.score > MainMenu.user.getInt(1)){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+                MainMenu.user.setInt(1, GameWorld.score);
+                MainMenu.user.store();
+            }
+            else if(Difficulty.gameDifficulty == Difficulty.HARD && GameWorld.score > MainMenu.user.getInt(2)){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
+                MainMenu.user.setInt(2, GameWorld.score);
+                MainMenu.user.store();
+            }
         }
-        else if(Difficulty.gameDifficulty == Difficulty.NORMAL && GameWorld.score > MainMenu.user.getInt(1)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(1, GameWorld.score);
-            MainMenu.user.store();
-        }
-        else if(Difficulty.gameDifficulty == Difficulty.HARD && GameWorld.score > MainMenu.user.getInt(2)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(2, GameWorld.score);
-            MainMenu.user.store();
-        }
-        //MainMenu.user.setInt(0, 0);
-        //MainMenu.user.setInt(1, 0);
-        //MainMenu.user.setInt(2, 0);
-        //MainMenu.user.store();
-        //uncomment the four lines above to reset the user's highscore (must play a round to reset)
-        setBackground(background);        
+        setBackground(background);
         
-        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
-        addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
+        returnButton = new Button("Return", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        addObject(returnButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     
     public void act(){
-        if(Greenfoot.mouseClicked(returnButton)){
+        if(Greenfoot.mouseClicked(returnButton) || (returnButton.isHovering() && Greenfoot.isKeyDown("space"))){
             //menuMusic.stop();
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());
