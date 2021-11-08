@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=SlidingWord
+comment0.text=\r\n\ Displays\ all\ the\ current\ letters\ in\ the\ word\ queue.\r\n\ \r\n\ @author\ Jaylen\ Cheung\r\n\ @version\ 1.0.0\r\n
+comment1.params=
+comment1.target=void\ act()
+comment2.params=word\ x\ y\ y2
+comment2.target=void\ setSlidingWord(java.lang.String,\ int,\ int,\ int)
+numComments=3
