@@ -9,20 +9,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MainMenu extends World
 {
     private GreenfootImage background;
-
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
     private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color bgColor = new Color(52, 232, 235);
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
+    private String title = "Word Blitz";
     public static final Color highscoreColor = new Color(255, 255, 0);
     public static final Font highscoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String easyHighscore, normalHighscore, hardHighscore;
-
-    private String title = "Word Blitz";
     
-    private Button startButton, instructionsButton, difficultyButton;
+    private Button startButton, difficultyButton, instructionsButton, achievementsButton;
     private int delay = 0;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
@@ -43,11 +40,11 @@ public class MainMenu extends World
         
         if(UserInfo.isStorageAvailable()){ //update highscore (from Greenfoot UserInfo API)
             user = UserInfo.getMyInfo();
-            //user.setInt(0, 0);
-            //user.setInt(1, 0);
-            //user.setInt(2, 0);
-            //user.store();
-            //uncomment the four lines above to reset the user's highscore
+            //MainMenu.user.setInt(0, 0);
+            //MainMenu.user.setInt(1, 0);
+            //MainMenu.user.setInt(2, 0);
+            //MainMenu.user.store();
+            //uncomment the four lines above to reset the user's highscore (must play a round to reset)
         }
         easyHighscore = "EASY HIGHSCORE: " + user.getInt(0);
         normalHighscore = "NORMAL HIGHSCORE: " + user.getInt(1);
@@ -72,7 +69,10 @@ public class MainMenu extends World
         addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
         
         instructionsButton = new Button("How To Play", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
-        addObject(instructionsButton, WIDTH / 2, (int)(HEIGHT * 4.4 / 5));
+        addObject(instructionsButton, WIDTH / 7, (int)(HEIGHT * 4.5 / 5));
+        
+        achievementsButton = new Button("Achievements", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 4.5 / 5));
     }
     
     public void act(){
@@ -95,6 +95,10 @@ public class MainMenu extends World
         else if(Greenfoot.mouseClicked(instructionsButton) || (instructionsButton.isHovering() && Greenfoot.isKeyDown("space"))){
             clickSound.play();
             Greenfoot.setWorld(new InstructionsMenu());
+        }
+        else if(Greenfoot.mouseClicked(achievementsButton) || (achievementsButton.isHovering() && Greenfoot.isKeyDown("space"))){
+            clickSound.play();
+            Greenfoot.setWorld(new AchievementsMenu());
         }
         if(delay > 0) delay--;
     }

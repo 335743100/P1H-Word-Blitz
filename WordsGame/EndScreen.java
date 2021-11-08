@@ -59,10 +59,10 @@ public class EndScreen extends World
                 MainMenu.user.store();
             }
         }
-        setBackground(background);        
+        setBackground(background);
         
         returnButton = new Button("Return", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
-        addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
+        addObject(returnButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     
     public void act(){

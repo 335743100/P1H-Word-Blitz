@@ -10,7 +10,7 @@ public class Button extends Actor
 {
     //declaring variables for the button's image
     private GreenfootImage image;
-    public static final int BUTTON_WIDTH = 960 / 6;
+    public static final int BUTTON_WIDTH = 960 / 5;
     public static final int BUTTON_HEIGHT = 540 / 11;
     private Color bgColor;
     private Color outlineColor;
