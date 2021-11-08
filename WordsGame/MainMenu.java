@@ -12,10 +12,11 @@ public class MainMenu extends World
 
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     public static final Color bgColor = new Color(52, 232, 235);
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
-    public static final Color highscoreColor = new Color(0, 0, 255);
+    public static final Color highscoreColor = new Color(255, 255, 0);
     public static final Font highscoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String easyHighscore, normalHighscore, hardHighscore;
 
@@ -53,8 +54,7 @@ public class MainMenu extends World
         hardHighscore = "HARD HIGHSCORE: " + user.getInt(2);
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(bgColor);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
         background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
@@ -65,13 +65,13 @@ public class MainMenu extends World
         background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 13);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
+        startButton = new Button("Start Game", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3.0 / 5));
         
-        difficultyButton = new Button("Difficulty", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
+        difficultyButton = new Button("Difficulty", Color.BLACK, Color.GREEN, Color.WHITE, Color.BLUE, Color.RED);
         addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
         
-        instructionsButton = new Button("How To Play", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
+        instructionsButton = new Button("How To Play", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(instructionsButton, WIDTH / 2, (int)(HEIGHT * 4.4 / 5));
     }
     

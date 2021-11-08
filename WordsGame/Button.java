@@ -13,6 +13,7 @@ public class Button extends Actor
     public static final int BUTTON_WIDTH = 960 / 6;
     public static final int BUTTON_HEIGHT = 540 / 11;
     private Color bgColor;
+    private Color outlineColor;
     private Color labelColor;
     private Color hoverColor;
     private Color flashColor;
@@ -29,11 +30,12 @@ public class Button extends Actor
     private boolean flashing = false;
     private int duration;
     
-    public Button(String str, Color bgColor, Color labelColor, Color hoverColor, Color flashColor){
+    public Button(String str, Color bgColor, Color outlineColor, Color labelColor, Color hoverColor, Color flashColor){
         image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons
         label = str;
         //setting the image for the button
         this.bgColor = bgColor;
+        this.outlineColor = outlineColor;
         this.labelColor = labelColor;
         this.hoverColor = hoverColor;
         this.flashColor = flashColor;
@@ -102,7 +104,7 @@ public class Button extends Actor
         image.fillOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.fillOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         if(flashing) image.setColor(flashColor);
-        else image.setColor(labelColor);
+        else image.setColor(outlineColor);
         image.drawOval(0, 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(0, image.getHeight() - 1 - ((image.getWidth() - 1) / 10), (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
         image.drawOval(image.getWidth() - 1- ((image.getWidth() - 1) / 10), 0, (image.getWidth() - 1) / 10, (image.getWidth() - 1) / 10);
@@ -111,12 +113,14 @@ public class Button extends Actor
         image.fillRect((image.getWidth() - 1) / 20, 0, image.getWidth() - 1 - (image.getWidth() - 1) / 10, image.getHeight() - 1);
         image.fillRect(0, (image.getWidth() - 1) / 20, image.getWidth() - 1, image.getHeight() - 1 - (image.getWidth() - 1) / 10);
         if(flashing) image.setColor(flashColor);
-        else image.setColor(labelColor);
+        else image.setColor(outlineColor);
         image.drawLine((image.getWidth() - 1) / 20, 0, image.getWidth() - 1- (image.getWidth() - 1) / 20, 0);
         image.drawLine((image.getWidth() - 1) / 20, image.getHeight() - 1, image.getWidth() - 1- (image.getWidth() - 1) / 20, image.getHeight() - 1);
         image.drawLine(0, (image.getWidth() - 1) / 20, 0, image.getHeight() - 1 - (image.getWidth() - 1) / 20);
         image.drawLine(image.getWidth() - 1, (image.getWidth() - 1) / 20, image.getWidth() - 1, image.getHeight() - 1 - (image.getWidth() - 1) / 20);
         //adding label
+        if(flashing) image.setColor(flashColor);
+        else image.setColor(labelColor);
         image.setFont(labelFont);
         if(hovering){ //change the label color if the mouse is hovering the button
             image.setColor(hoverColor);

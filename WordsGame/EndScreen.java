@@ -11,11 +11,11 @@ public class EndScreen extends World
     private GreenfootImage background;
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
-    public static final Color bgColor = new Color(52, 232, 235);
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     public static final Color titleColor = new Color(255, 0, 0);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "GAME OVER";
-    public static final Color scoreColor = new Color(0, 0, 255);
+    public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String score;
     private String highscore = "NEW HIGHSCORE!";
@@ -34,8 +34,7 @@ public class EndScreen extends World
         score = "SCORE: " + Integer.toString(GameWorld.score);
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(bgColor);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
         background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
@@ -62,7 +61,7 @@ public class EndScreen extends World
         }
         setBackground(background);        
         
-        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
+        returnButton = new Button("Return", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
     }
     

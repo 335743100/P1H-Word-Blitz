@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Button
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Button\ here.\r\n\ \r\n\ @author\ (your\ name)\ Format\ by\ Mr.\ Cohen\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=str\ bgColor\ labelColor\ hoverColor\ flashColor
-comment1.target=Button(java.lang.String,\ greenfoot.Color,\ greenfoot.Color,\ greenfoot.Color,\ greenfoot.Color)
+comment1.params=str\ bgColor\ outlineColor\ labelColor\ hoverColor\ flashColor
+comment1.target=Button(java.lang.String,\ greenfoot.Color,\ greenfoot.Color,\ greenfoot.Color,\ greenfoot.Color,\ greenfoot.Color)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=label

@@ -13,7 +13,7 @@ public class ScoreDisplay extends Actor
     private GreenfootImage image;
     public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH;
     public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT / 11;
-    public static final Color scoreColor = new Color(0, 0, 255);
+    public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = MainMenu.highscoreFont;
     
     //declaring instance variables
