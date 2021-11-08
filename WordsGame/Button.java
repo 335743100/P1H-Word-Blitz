@@ -30,9 +30,9 @@ public class Button extends Actor
     private boolean flashing = false;
     private int duration;
     
-    public Button(String str, Color bgColor, Color outlineColor, Color labelColor, Color hoverColor, Color flashColor){
+    public Button(String label, Color bgColor, Color outlineColor, Color labelColor, Color hoverColor, Color flashColor){
         image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons
-        label = str;
+        this.label = label;
         //setting the image for the button
         this.bgColor = bgColor;
         this.outlineColor = outlineColor;

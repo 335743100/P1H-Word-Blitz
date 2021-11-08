@@ -47,6 +47,22 @@ public class ScoreDisplay extends Actor
         display += " ACCURACY: " + this.accuracy + "%";
         drawScoreDisplay();
         setImage(image);
+        
+        if(UserInfo.isStorageAvailable()){
+            if(score >= 200 && wpm >= 50 && MainMenu.user.getInt(0) == 0) MainMenu.user.setInt(0, 1);
+            if(score >= 200 && wpm >= 80 && MainMenu.user.getInt(3) == 0) MainMenu.user.setInt(3, 1);
+            if(score >= 200 && wpm >= 110 && MainMenu.user.getInt(6) == 0) MainMenu.user.setInt(6, 1);
+            
+            if(score >= 200 && accuracy >= 90 && MainMenu.user.getInt(1) == 0) MainMenu.user.setInt(1, 1);
+            if(score >= 200 && accuracy >= 95 && MainMenu.user.getInt(4) == 0) MainMenu.user.setInt(4, 1);
+            if(score >= 200 && accuracy >= 100 && MainMenu.user.getInt(7) == 0) MainMenu.user.setInt(7, 1);
+            
+            if(score >= 1000 && Difficulty.gameDifficulty == Difficulty.EASY && MainMenu.user.getInt(2) == 0) MainMenu.user.setInt(2, 1);
+            if(score >= 1000 && Difficulty.gameDifficulty == Difficulty.NORMAL && MainMenu.user.getInt(5) == 0) MainMenu.user.setInt(5, 1);
+            if(score >= 1000 && Difficulty.gameDifficulty == Difficulty.HARD && MainMenu.user.getInt(8) == 0) MainMenu.user.setInt(8, 1);
+            
+            MainMenu.user.store();
+        }
     }
     
     //method to draw the score display
