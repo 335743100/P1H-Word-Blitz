@@ -12,7 +12,7 @@ public class InstructionsMenu extends World
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
     private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 0);
+    public static final Color titleColor = new Color(255, 0, 255);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Instructions";
     public static final Color instructionsColor = new Color(255, 255, 0);
@@ -46,7 +46,7 @@ public class InstructionsMenu extends World
         background.drawString(instruction4, (getWidth() - (int)(instruction4.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 5 / 6);
         setBackground(background);
         
-        backButton = new Button("Back", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        backButton = new Button("Back", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(backButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     
