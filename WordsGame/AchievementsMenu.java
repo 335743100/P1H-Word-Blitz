@@ -39,84 +39,84 @@ public class AchievementsMenu extends World
         setBackground(background);
         
         if(UserInfo.isStorageAvailable()){
-            if(MainMenu.user.getInt(0) == 0){ //50 wpm at 200 points
-                Achievement bronze1 = new Achievement("name", "bronze", false);
+            if(MainMenu.user.getInt(0) == 0){ //70 wpm at 200 points
+                Achievement bronze1 = new Achievement("name", "bronze", false, false);
                 addObject(bronze1, WIDTH / 5, HEIGHT * 27 / 100);
             }
             else if(MainMenu.user.getInt(0) == 1){
-                Achievement bronze1 = new Achievement("name", "bronze", true);
+                Achievement bronze1 = new Achievement("name", "bronze", true, false);
                 addObject(bronze1, WIDTH / 5, HEIGHT * 27 / 100);
             }
-            if(MainMenu.user.getInt(1) == 0){ //90% accuracy at 200 points
-                Achievement bronze2 = new Achievement("name", "bronze", false);
+            if(MainMenu.user.getInt(1) == 0){ //95% accuracy at 200 points
+                Achievement bronze2 = new Achievement("name", "bronze", false, false);
                 addObject(bronze2, WIDTH / 2, HEIGHT * 27 / 100);
             }
             else if(MainMenu.user.getInt(1) == 1){
-                Achievement bronze2 = new Achievement("name", "bronze", true);
+                Achievement bronze2 = new Achievement("name", "bronze", true, false);
                 addObject(bronze2, WIDTH / 2, HEIGHT * 27 / 100);
             }
             if(MainMenu.user.getInt(2) == 0){ //1000 points on easy
-                Achievement bronze3 = new Achievement("name", "bronze", false);
+                Achievement bronze3 = new Achievement("name", "bronze", false, false);
                 addObject(bronze3, WIDTH * 4 / 5, HEIGHT * 27 / 100);
             }
             else if(MainMenu.user.getInt(2) == 1){
-                Achievement bronze3 = new Achievement("name", "bronze", true);
+                Achievement bronze3 = new Achievement("name", "bronze", true, false);
                 addObject(bronze3, WIDTH * 4 / 5, HEIGHT * 27 / 100);
             }
-            if(MainMenu.user.getInt(3) == 0){ //80 wpm at 200 points
-                Achievement silver1 = new Achievement("name", "silver", false);
+            if(MainMenu.user.getInt(3) == 0){ //100 wpm at 200 points
+                Achievement silver1 = new Achievement("name", "silver", false, false);
                 addObject(silver1, WIDTH / 5, HEIGHT * 283 / 600);
             }
             else if(MainMenu.user.getInt(3) == 1){
-                Achievement silver1 = new Achievement("name", "silver", true);
+                Achievement silver1 = new Achievement("name", "silver", true, false);
                 addObject(silver1, WIDTH / 5, HEIGHT * 283 / 600);
             }
-            if(MainMenu.user.getInt(4) == 0){ //95% accuracy at 200 points
-                Achievement silver2 = new Achievement("name", "silver", false);
+            if(MainMenu.user.getInt(4) == 0){ //97% accuracy at 200 points
+                Achievement silver2 = new Achievement("name", "silver", false, false);
                 addObject(silver2, WIDTH / 2, HEIGHT * 283 / 600);
             }
             else if(MainMenu.user.getInt(4) == 1){
-                Achievement silver2 = new Achievement("name", "silver", true);
+                Achievement silver2 = new Achievement("name", "silver", true, false);
                 addObject(silver2, WIDTH / 2, HEIGHT * 283 / 600);
             }
             if(MainMenu.user.getInt(5) == 0){ //1000 points on normal
-                Achievement silver3 = new Achievement("name", "silver", false);
+                Achievement silver3 = new Achievement("name", "silver", false, false);
                 addObject(silver3, WIDTH * 4 / 5, HEIGHT * 283 / 600);
             }
             else if(MainMenu.user.getInt(5) == 1){
-                Achievement silver3 = new Achievement("name", "silver", true);
+                Achievement silver3 = new Achievement("name", "silver", true, false);
                 addObject(silver3, WIDTH * 4 / 5, HEIGHT * 283 / 600);
             }
-            if(MainMenu.user.getInt(6) == 0){ //110 wpm at 200 points
-                Achievement gold1 = new Achievement("name", "gold", false);
+            if(MainMenu.user.getInt(6) == 0){ //130 wpm at 200 points
+                Achievement gold1 = new Achievement("name", "gold", false, false);
                 addObject(gold1, WIDTH / 5, HEIGHT * 101 / 150);
             }
             else if(MainMenu.user.getInt(6) == 1){
-                Achievement gold1 = new Achievement("name", "gold", true);
+                Achievement gold1 = new Achievement("name", "gold", true, false);
                 addObject(gold1, WIDTH / 5, HEIGHT * 101 / 150);
             }
             if(MainMenu.user.getInt(7) == 0){ //100% accuracy at 200 points
-                Achievement gold2 = new Achievement("name", "gold", false);
+                Achievement gold2 = new Achievement("name", "gold", false, false);
                 addObject(gold2, WIDTH / 2, HEIGHT * 101 / 150);
             }
             else if(MainMenu.user.getInt(7) == 1){
-                Achievement gold2 = new Achievement("name", "gold", true);
+                Achievement gold2 = new Achievement("name", "gold", true, false);
                 addObject(gold2, WIDTH / 2, HEIGHT * 101 / 150);
             }
             if(MainMenu.user.getInt(8) == 0){ //1000 points on hard
-                Achievement gold3 = new Achievement("name", "gold", false);
+                Achievement gold3 = new Achievement("name", "gold", false, false);
                 addObject(gold3, WIDTH * 4 / 5, HEIGHT * 101 / 150);
             }
             else if(MainMenu.user.getInt(8) == 1){
-                Achievement gold3 = new Achievement("name", "gold", true);
+                Achievement gold3 = new Achievement("name", "gold", true, false);
                 addObject(gold3, WIDTH * 4 / 5, HEIGHT * 101 / 150);
             }
             if(MainMenu.user.getInt(9) < 100){ //play 100 games
-                Achievement diamond = new Achievement("name", "diamond", false);
+                Achievement diamond = new Achievement("name", "diamond", false, false);
                 addObject(diamond, WIDTH / 2, HEIGHT * 7 / 8);
             }
             else if(MainMenu.user.getInt(9) >= 100){
-                Achievement diamond = new Achievement("name", "diamond", true);
+                Achievement diamond = new Achievement("name", "diamond", true, false);
                 addObject(diamond, WIDTH / 2, HEIGHT * 7 / 8);
             }
         }

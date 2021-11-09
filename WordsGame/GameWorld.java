@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.Math;
@@ -47,10 +48,8 @@ public class GameWorld extends World {
     private String punc = "`~!@#$%^&*()-_=+[{]}|\\;:'\",<.>/?";
     
     //sound effects
-    private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
-    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
-    private GreenfootSound[] correctSounds, wrongSounds;
-    private int correctSoundIndex, wrongSoundIndex;
+    private GreenfootSound[] correctSounds, wrongSounds, achievementSounds;
+    private int correctSoundIndex, wrongSoundIndex, achievementSoundIndex;
     
     //boolean to keep track of key release
     private boolean keyDown, spaceDown;
@@ -72,6 +71,8 @@ public class GameWorld extends World {
 
     // How fast the timer should go down
     private float speed;
+    
+    int numMedals;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -107,6 +108,12 @@ public class GameWorld extends World {
         wrongSoundIndex = 0;
         wrongSounds = new GreenfootSound[15];
         for(int i = 0; i < wrongSounds.length; i++) wrongSounds[i] = new GreenfootSound("Wrong.wav");
+        achievementSoundIndex = 0;
+        achievementSounds = new GreenfootSound[10];
+        for(int i = 0; i < achievementSounds.length; i++){
+            achievementSounds[i] = new GreenfootSound("Achievement.wav");
+            achievementSounds[i].setVolume(70); 
+        }
         
         key = null;
         keyDown = false;
@@ -122,6 +129,8 @@ public class GameWorld extends World {
         
         scoreDisplay = new ScoreDisplay(score);
         addObject(scoreDisplay, scoreDisplay.SCORE_DISPLAY_WIDTH / 2, scoreDisplay.SCORE_DISPLAY_HEIGHT / 2);
+        
+        numMedals = 0;
         
         currentWord = playerWordQueue.remove();
         playerInput = "";
@@ -151,8 +160,22 @@ public class GameWorld extends World {
             }
         }
         
+        if(numMedals != ScoreDisplay.medalsUnlocked.size()){
+            for(int i = numMedals; i < ScoreDisplay.medalsUnlocked.size(); i++){
+                if(i % 2 == 0) addObject(EndScreen.determineMedal(ScoreDisplay.medalsUnlocked.get(i), true), WIDTH * 70 / 85, HEIGHT * (i / 2 + 1) / 5);
+                else addObject(EndScreen.determineMedal(ScoreDisplay.medalsUnlocked.get(i), true), WIDTH * 79 / 85, HEIGHT * (i / 2 + 1) / 5);
+                achievementSounds[achievementSoundIndex].play();
+                achievementSoundIndex++;
+                if(achievementSoundIndex >= achievementSounds.length) achievementSoundIndex = 0;
+            }
+            numMedals = ScoreDisplay.medalsUnlocked.size();
+        }
+        
         time -= this.speed;
-        if(time <= 0) Greenfoot.setWorld(new EndScreen());
+        if(time <= 0){
+            Collections.sort(ScoreDisplay.medalsUnlocked);
+            Greenfoot.setWorld(new EndScreen());
+        }
         timeBar.update((int)time);
         
         gameTime++;

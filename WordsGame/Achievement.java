@@ -15,6 +15,9 @@ public class Achievement extends Actor
     private Font nameFont = new Font("Courier New", true, true, MEDAL_HEIGHT / 6);
     private String name;
     
+    private boolean popup;
+    private int time;
+    
     private GreenfootImage bronzeMedal = new GreenfootImage("BronzeMedal.png");
     private GreenfootImage noBronzeMedal = new GreenfootImage("NoBronzeMedal.png");
     private GreenfootImage silverMedal = new GreenfootImage("SilverMedal.png");
@@ -24,7 +27,7 @@ public class Achievement extends Actor
     private GreenfootImage diamondMedal = new GreenfootImage("DiamondMedal.png");
     private GreenfootImage noDiamondMedal = new GreenfootImage("NoDiamondMedal.png");
     
-    public Achievement(String name, String type, boolean achieved){
+    public Achievement(String name, String type, boolean achieved, boolean popup){
         image = new GreenfootImage(MEDAL_WIDTH + 1, MEDAL_HEIGHT + 1);
         
         if(achieved){
@@ -56,6 +59,8 @@ public class Achievement extends Actor
             }
         }
         
+        this.popup = popup;
+        if(popup) time = 120;
         
         this.name = name;
         image.setColor(nameColor);
@@ -70,6 +75,9 @@ public class Achievement extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
+        if(popup){
+            if(time == 0) getWorld().removeObject(this);
+            else time--;
+        }
     }    
 }

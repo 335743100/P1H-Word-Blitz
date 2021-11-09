@@ -43,28 +43,13 @@ public class MainMenu extends World
         if(UserInfo.isStorageAvailable()){ //update highscore (from Greenfoot UserInfo API)
             user = UserInfo.getMyInfo();
             
-            /*
-            MainMenu.user.setString(0, "0");
-            MainMenu.user.setString(1, "0");
-            MainMenu.user.setString(2, "0");
-            MainMenu.user.store();
-            */
-            //uncomment the four lines above to reset the user's highscore
+            //for(int i = 0; i < 3; i++) MainMenu.user.setString(i, "0");
+            //MainMenu.user.store();
+            //uncomment the two lines above to reset the user's highscore
             
-            /*
-            MainMenu.user.setInt(0, 0);
-            MainMenu.user.setInt(1, 0);
-            MainMenu.user.setInt(2, 0);
-            MainMenu.user.setInt(3, 0);
-            MainMenu.user.setInt(4, 0);
-            MainMenu.user.setInt(5, 0);
-            MainMenu.user.setInt(6, 0);
-            MainMenu.user.setInt(7, 0);
-            MainMenu.user.setInt(8, 0);
-            MainMenu.user.setInt(9, 0);
+            for(int i = 0; i < 10; i++) MainMenu.user.setInt(i, 0);
             MainMenu.user.store();
-            */
-            //uncomment the eleven lines above to reset the user's achievements
+            //uncomment the two lines above to reset the user's achievements
             
             easyHighscore = "EASY HIGHSCORE: " + user.getString(0);
             normalHighscore = "NORMAL HIGHSCORE: " + user.getString(1);
