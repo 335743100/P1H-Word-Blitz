@@ -66,8 +66,7 @@ public class GameWorld extends World {
     // Keep track of how long the game has been running
     private int gameTime;
     
-    // Keep track of the number of right and wrong characters to calculate
-    // accuracy
+    // Keep track of the number of right and wrong characters to calculate accuracy
     private int totalWrongChars;
     private int totalRightChars;
 
