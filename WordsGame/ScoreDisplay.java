@@ -60,24 +60,24 @@ public class ScoreDisplay extends Actor
                 MainMenu.user.setInt(0, 1);
                 medalsUnlocked.add(0);
             }
-            if(score >= 200 && wpm >= 75 && MainMenu.user.getInt(3) == 0){ //100
+            if(score >= 200 && wpm >= 100 && MainMenu.user.getInt(3) == 0){
                 MainMenu.user.setInt(3, 1);
                 medalsUnlocked.add(3);
             }
-            if(score >= 200 && wpm >= 80 && MainMenu.user.getInt(6) == 0){ //130
+            if(score >= 200 && wpm >= 130 && MainMenu.user.getInt(6) == 0){
                 MainMenu.user.setInt(6, 1);
                 medalsUnlocked.add(6);
             }
             
-            if(score >= 200 && accuracy >= 80 && MainMenu.user.getInt(1) == 0){ //95
+            if(score >= 200 && accuracy >= 95 && MainMenu.user.getInt(1) == 0){
                 MainMenu.user.setInt(1, 1);
                 medalsUnlocked.add(1);
             }
-            if(score >= 200 && accuracy >= 85 && MainMenu.user.getInt(4) == 0){ //97
+            if(score >= 200 && accuracy >= 97 && MainMenu.user.getInt(4) == 0){
                 MainMenu.user.setInt(4, 1);
                 medalsUnlocked.add(4);
             }
-            if(score >= 200 && accuracy >= 90 && MainMenu.user.getInt(7) == 0){ //100
+            if(score >= 200 && accuracy >= 100 && MainMenu.user.getInt(7) == 0){
                 MainMenu.user.setInt(7, 1);
                 medalsUnlocked.add(7);
             }

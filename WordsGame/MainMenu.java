@@ -47,8 +47,8 @@ public class MainMenu extends World
             //MainMenu.user.store();
             //uncomment the two lines above to reset the user's highscore
             
-            for(int i = 0; i < 10; i++) MainMenu.user.setInt(i, 0);
-            MainMenu.user.store();
+            //for(int i = 0; i < 10; i++) MainMenu.user.setInt(i, 0);
+            //MainMenu.user.store();
             //uncomment the two lines above to reset the user's achievements
             
             easyHighscore = "EASY HIGHSCORE: " + user.getString(0);
