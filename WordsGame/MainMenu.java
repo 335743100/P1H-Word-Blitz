@@ -23,6 +23,7 @@ public class MainMenu extends World
     
     private Button startButton, difficultyButton, instructionsButton, achievementsButton;
     private int delay = 0;
+    private GreenfootSound backgroundMusic = new GreenfootSound("BackgroundMusic.mp3");
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
     private MouseInfo mouse;
@@ -86,6 +87,10 @@ public class MainMenu extends World
         
         achievementsButton = new Button("Achievements", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 4.5 / 5));
+    }
+    
+    public void started(){
+        backgroundMusic.playLoop();
     }
     
     public void act(){
