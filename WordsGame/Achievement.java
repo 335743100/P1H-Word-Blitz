@@ -13,7 +13,7 @@ public class Achievement extends Actor
     public static final int MEDAL_HEIGHT = 540 / 6;
     private Color nameColor = new Color(255, 255, 0);
     private Font nameFont = new Font("Courier New", true, true, MEDAL_HEIGHT / 6);
-    private String name;
+    private String name, text;
     
     private boolean popup;
     private int time;
@@ -27,7 +27,11 @@ public class Achievement extends Actor
     private GreenfootImage diamondMedal = new GreenfootImage("DiamondMedal.png");
     private GreenfootImage noDiamondMedal = new GreenfootImage("NoDiamondMedal.png");
     
-    public Achievement(String name, String type, boolean achieved, boolean popup){
+    AchievementDescription description;
+    
+    private MouseInfo mouse;
+    
+    public Achievement(String name, String text, String type, boolean achieved, boolean popup){
         image = new GreenfootImage(MEDAL_WIDTH + 1, MEDAL_HEIGHT + 1);
         
         if(achieved){
@@ -60,13 +64,21 @@ public class Achievement extends Actor
         }
         
         this.popup = popup;
-        if(popup) time = 120;
+        if(popup) time = 180;
         
         this.name = name;
+        this.text = text;
         image.setColor(nameColor);
         image.setFont(nameFont);
         image.drawString(name, (image.getWidth() - (int)(name.length() * nameFont.getSize() * 0.58)) / 2, (image.getHeight() * 9 / 10));
         setImage(image);
+    }
+    
+    protected void addedToWorld(World AchievementMenu){
+        if(!popup){
+            description = new AchievementDescription(text);
+            getWorld().addObject(description, this.getX(), this.getY());
+        }
     }
     
     /**
@@ -75,9 +87,19 @@ public class Achievement extends Actor
      */
     public void act() 
     {
+        mouse = Greenfoot.getMouseInfo();
+        
         if(popup){
             if(time == 0) getWorld().removeObject(this);
             else time--;
         }
-    }    
+        else{
+            if(Greenfoot.mouseMoved(this)){
+                description.update(true);
+            }
+            if(Greenfoot.mouseMoved(null) && !Greenfoot.mouseMoved(this)){
+                description.update(false);
+            }
+        }
+    }
 }

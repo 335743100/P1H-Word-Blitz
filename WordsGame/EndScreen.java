@@ -171,16 +171,16 @@ public class EndScreen extends World
     
     public static Achievement determineMedal(int index, boolean popup){
         Achievement medal;
-        if(index == 0) medal = new Achievement("name", "bronze", true, popup);
-        else if(index == 1) medal = new Achievement("name", "bronze", true, popup);
-        else if(index == 2) medal = new Achievement("name", "bronze", true, popup);
-        else if(index == 3) medal = new Achievement("name", "silver", true, popup);
-        else if(index == 4) medal = new Achievement("name", "silver", true, popup);
-        else if(index == 5) medal = new Achievement("name", "silver", true, popup);
-        else if(index == 6) medal = new Achievement("name", "gold", true, popup);
-        else if(index == 7) medal = new Achievement("name", "gold", true, popup);
-        else if(index == 8) medal = new Achievement("name", "gold", true, popup);
-        else medal = new Achievement("name", "diamond", true, popup);
+        if(index == 0) medal = new Achievement("name", "text", "bronze", true, popup);
+        else if(index == 1) medal = new Achievement("name", "text", "bronze", true, popup);
+        else if(index == 2) medal = new Achievement("name", "text", "bronze", true, popup);
+        else if(index == 3) medal = new Achievement("name", "text", "silver", true, popup);
+        else if(index == 4) medal = new Achievement("name", "text", "silver", true, popup);
+        else if(index == 5) medal = new Achievement("name", "text", "silver", true, popup);
+        else if(index == 6) medal = new Achievement("name", "text", "gold", true, popup);
+        else if(index == 7) medal = new Achievement("name", "text", "gold", true, popup);
+        else if(index == 8) medal = new Achievement("name", "text", "gold", true, popup);
+        else medal = new Achievement("name", "text", "diamond", true, popup);
         return medal;
     }
     
