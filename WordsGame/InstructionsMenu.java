@@ -18,7 +18,7 @@ public class InstructionsMenu extends World
     public static final Color instructionsColor = new Color(255, 255, 0);
     public static final Font instructionsFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String instruction1 = "Type the words as fast as you can.";
-    private String instruction2 = "Speed and accuracy count!";
+    private String instruction2 = "Speed and accuracy count for achievements!";
     private String instruction3 = "The game ends when you run out of time.";
     private String instruction4 = "Have fun!";
     

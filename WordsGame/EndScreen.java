@@ -77,111 +77,96 @@ public class EndScreen extends World
         int numMedals = medals.size();
         int medal = 0;
         if(numMedals == 1){
-            addObject(determineMedal(medals.get(0), false), WIDTH / 2, HEIGHT * 17 / 28);
+            addObject(new Achievement(medals.get(0), true, false), WIDTH / 2, HEIGHT * 17 / 28);
         }
         else if(numMedals == 2){
             int x = 2;
             for(int i = 0; i < 2; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 17 / 28);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 17 / 28);
                 x++;
             }
         }
         else if(numMedals == 3){
             int x = 3;
             for(int i = 0; i < 3; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 17 / 28);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 17 / 28);
                 x += 2;
             }
         }
         else if(numMedals == 4){
             int x = 1;
             for(int i = 0; i < 4; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 17 / 28);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 17 / 28);
                 x++;
             }
         }
         else if(numMedals == 5){
             int x = 1;
             for(int i = 0; i < 5; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 17 / 28);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 17 / 28);
                 x += 2;
             }
         }
         else if(numMedals == 6){
             int x = 3;
             for(int i = 0; i < 3; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
                 x += 2;
             }
             x = 3;
             for(int i = 3; i < 6; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
                 x += 2;
             }
         }
         else if(numMedals == 7){
             int x = 3;
             for(int i = 0; i < 3; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
                 x += 2;
             }
             x = 1;
             for(int i = 3; i < 7; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 5 / 7);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 5 / 7);
                 x++;
             }
         }
         else if(numMedals == 8){
             int x = 1;
             for(int i = 0; i < 4; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 1 / 2);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 1 / 2);
                 x++;
             }
             x = 1;
             for(int i = 4; i < 8; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 5 / 7);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 5 / 7);
                 x++;
             }
         }
         else if(numMedals == 9){
             int x = 1;
             for(int i = 0; i < 4; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 5, HEIGHT * 1 / 2);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 1 / 2);
                 x++;
             }
             x = 1;
             for(int i = 4; i < 9; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
                 x += 2;
             }
         }
         else if(numMedals == 10){
             int x = 1;
             for(int i = 0; i < 5; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
                 x += 2;
             }
             x = 1;
             for(int i = 5; i < 10; i++){
-                addObject(determineMedal(medals.get(i), false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
                 x += 2;
             }
         }
-    }
-    
-    public static Achievement determineMedal(int index, boolean popup){
-        Achievement medal;
-        if(index == 0) medal = new Achievement("name", "text", "bronze", true, popup);
-        else if(index == 1) medal = new Achievement("name", "text", "bronze", true, popup);
-        else if(index == 2) medal = new Achievement("name", "text", "bronze", true, popup);
-        else if(index == 3) medal = new Achievement("name", "text", "silver", true, popup);
-        else if(index == 4) medal = new Achievement("name", "text", "silver", true, popup);
-        else if(index == 5) medal = new Achievement("name", "text", "silver", true, popup);
-        else if(index == 6) medal = new Achievement("name", "text", "gold", true, popup);
-        else if(index == 7) medal = new Achievement("name", "text", "gold", true, popup);
-        else if(index == 8) medal = new Achievement("name", "text", "gold", true, popup);
-        else medal = new Achievement("name", "text", "diamond", true, popup);
-        return medal;
     }
     
     public void act(){

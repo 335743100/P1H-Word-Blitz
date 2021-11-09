@@ -162,13 +162,14 @@ public class GameWorld extends World {
         
         if(numMedals != ScoreDisplay.medalsUnlocked.size()){
             for(int i = numMedals; i < ScoreDisplay.medalsUnlocked.size(); i++){
-                if(ScoreDisplay.medalsUnlocked.get(i) == 0) addObject(new Achievement("name", "text", "bronze", true, true), WIDTH * 70 / 85, HEIGHT / 5);
-                else if(ScoreDisplay.medalsUnlocked.get(i) == 3) addObject(new Achievement("name", "text", "silver", true, true), WIDTH * 70 / 85, HEIGHT * 2 / 5);
-                else if(ScoreDisplay.medalsUnlocked.get(i) == 6) addObject(new Achievement("name", "text", "gold", true, true), WIDTH * 70 / 85, HEIGHT * 3 / 5);
-                else if(ScoreDisplay.medalsUnlocked.get(i) == 1) addObject(new Achievement("name", "text", "bronze", true, true), WIDTH * 79 / 85, HEIGHT / 5);
-                else if(ScoreDisplay.medalsUnlocked.get(i) == 4) addObject(new Achievement("name", "text", "silver", true, true), WIDTH * 79 / 85, HEIGHT * 2 / 5);
-                else if(ScoreDisplay.medalsUnlocked.get(i) == 7) addObject(new Achievement("name", "text", "gold", true, true), WIDTH * 79 / 85, HEIGHT * 3 / 5);
-                else addObject(EndScreen.determineMedal(ScoreDisplay.medalsUnlocked.get(i), true), WIDTH * 149 / 170, HEIGHT * 4 / 5);
+                int medal = ScoreDisplay.medalsUnlocked.get(i);
+                if(medal == 0) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT / 5);
+                else if(medal == 3) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 2 / 5);
+                else if(medal == 6) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 3 / 5);
+                else if(medal == 1) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT / 5);
+                else if(medal == 4) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 2 / 5);
+                else if(medal == 7) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 3 / 5);
+                else addObject(new Achievement(medal, true, true), WIDTH * 149 / 170, HEIGHT * 4 / 5);
                 
                 achievementSounds[achievementSoundIndex].play();
                 achievementSoundIndex++;

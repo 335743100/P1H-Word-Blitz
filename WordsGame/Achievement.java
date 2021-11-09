@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class Achievement here.
@@ -9,7 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Achievement extends Actor
 {
     private GreenfootImage image;
-    public static final int MEDAL_WIDTH = 960 / 6;
+    public static final int MEDAL_WIDTH = 960 / 5;
     public static final int MEDAL_HEIGHT = 540 / 6;
     private Color nameColor = new Color(255, 255, 0);
     private Font nameFont = new Font("Courier New", true, true, MEDAL_HEIGHT / 6);
@@ -31,17 +32,24 @@ public class Achievement extends Actor
     private GreenfootImage diamondMedal = new GreenfootImage("DiamondMedal.png");
     private GreenfootImage noDiamondMedal = new GreenfootImage("NoDiamondMedal.png");
     
+    private String[] names = {"Gotta Go Fast", "Almost There", "Just Getting Started", "2 Fast 2 Furious", "Spelling Counts", "Too Easy", "Speeder", 
+        "Perfectionist", "TryHard", "Veteran"};
+    private String[] descriptions = {"Get 70 WPM At 200 Points", "Get 95% Accuracy At 200 Points", "Get 1000 Points On Easy Difficulty", 
+        "Get 100 WPM At 200 Points", "Get 97% Accuracy At 200 Points", "Get 1000 Points On Normal Difficulty", 
+        "Get 130 WPM At 200 Points", "Get 100% accuracy At 200 Points", "Get 1000 Points On Hard Difficulty", "Play 100 Games"};
+    private String[] types = {"bronze", "bronze", "bronze", "silver", "silver","silver", "gold", "gold", "gold", "diamond"};
+    
     private MouseInfo mouse;
     
-    public Achievement(String name, String text, String type, boolean achieved, boolean popup){
+    public Achievement(int index, boolean achieved, boolean popup){
         image = new GreenfootImage(MEDAL_WIDTH + 1, MEDAL_HEIGHT + 1);
         
-        this.name = name;
-        this.text = text;
-        this.type = type;
+        name = names[index];
+        text = descriptions[index];
+        type = types[index];
         this.achieved = achieved;
         this.popup = popup;
-        if(popup) time = 180;
+        if(popup) time = 150;
         
         drawMedal();
     }
@@ -106,7 +114,7 @@ public class Achievement extends Actor
     
     private void drawDescription(){
         image.clear();
-        Color black = new Color(255, 0, 255, 100);
+        Color black = new Color(255, 0, 127, 50);
         image.setColor(black);
         image.fill();
         image.setColor(Color.YELLOW);
@@ -134,28 +142,29 @@ public class Achievement extends Actor
                 length = 0;
             }
         }
-        if(lineCounter == 1) image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2));
+        int size = textFont.getSize() / 4;
+        if(lineCounter == 1) image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2) + size);
         else if(lineCounter == 2){
-            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 2 / 5));
-            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 5));
+            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 2 / 5) + size);
+            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 5) + size);
         }
         else if(lineCounter == 3){
-            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 10));
-            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2));
-            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 7 / 10));
+            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 10) + size);
+            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2) + size);
+            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 7 / 10) + size);
         }
         else if(lineCounter == 4){
-            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 5));
-            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 2 / 5));
-            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 5));
-            image.drawString(line4, (image.getWidth() - (int)(line4.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 4 / 5));
+            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 5) + size);
+            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 2 / 5) + size);
+            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 5) + size);
+            image.drawString(line4, (image.getWidth() - (int)(line4.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 4 / 5) + size);
         }
         else if(lineCounter == 5){
-            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 10));
-            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 10));
-            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2));
-            image.drawString(line4, (image.getWidth() - (int)(line4.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 7 / 10));
-            image.drawString(line5, (image.getWidth() - (int)(line5.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 9 / 10));
+            image.drawString(line1, (image.getWidth() - (int)(line1.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 10) + size);
+            image.drawString(line2, (image.getWidth() - (int)(line2.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 3 / 10) + size);
+            image.drawString(line3, (image.getWidth() - (int)(line3.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() / 2) + size);
+            image.drawString(line4, (image.getWidth() - (int)(line4.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 7 / 10) + size);
+            image.drawString(line5, (image.getWidth() - (int)(line5.length() * textFont.getSize() * 0.6)) / 2, (image.getHeight() * 9 / 10) + size);
         }
         setImage(image);
     }
