@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Difficulty
+comment0.text=\r\n\ Difficulty\ setter\r\n
+comment1.params=speed
+comment1.target=Difficulty(float)
+numComments=2
