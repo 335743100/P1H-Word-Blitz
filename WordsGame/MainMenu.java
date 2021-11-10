@@ -92,6 +92,7 @@ public class MainMenu extends World
     
     public void started(){
         if(!musicStarted){
+            backgroundMusic.setVolume(40);
             backgroundMusic.playLoop();
             musicStarted = true;
         }
