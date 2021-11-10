@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Achievement
+comment0.text=\r\n\ General\ achievement\ class\r\n\ \r\n\ @author\ Edison\ Lim,\ Vaughn\ Chan,\ Jaylen\ Cheung\r\n\ @version\ November\ 9,\ 2021\r\n
+comment1.params=index\ achieved\ popup
+comment1.target=Achievement(int,\ boolean,\ boolean)
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Check\ for\ hovering\ over\ achievement\ to\ display\ the\ details\r\n
+comment3.params=
+comment3.target=void\ drawMedal()
+comment3.text=\r\n\ Draw\ each\ achievement\ medal\r\n
+comment4.params=
+comment4.target=void\ drawDescription()
+comment4.text=\r\n\ Draw\ each\ achievement\ description\r\n
+numComments=5
