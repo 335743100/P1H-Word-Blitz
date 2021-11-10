@@ -1,12 +1,10 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
-------------------------------------------------------------------------
+# WordBlitz
+By Vaughn Chan, Jaylen Cheung, and Edison Lim
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+ArrayLists used in class EndScreen
+ArrayLists, LinkedLists, Queues, Arrays used in World GameWorld
+Queues used in class CorrectWordOverlay
+ArrayLists used in class ScoreDisplay
+ArrayLists, LinkedLists, Queues, and used in class WordBox
+Queues used in class WrongWordOverlay
+ArrayLists used in class ReadWordFiles
