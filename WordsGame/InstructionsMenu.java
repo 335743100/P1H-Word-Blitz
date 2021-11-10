@@ -12,13 +12,13 @@ public class InstructionsMenu extends World
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
     private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 0);
+    public static final Color titleColor = new Color(255, 0, 255);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Instructions";
     public static final Color instructionsColor = new Color(255, 255, 0);
     public static final Font instructionsFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String instruction1 = "Type the words as fast as you can.";
-    private String instruction2 = "Speed and accuracy count!";
+    private String instruction2 = "Speed and accuracy count for achievements!";
     private String instruction3 = "The game ends when you run out of time.";
     private String instruction4 = "Have fun!";
     
@@ -37,16 +37,16 @@ public class InstructionsMenu extends World
         background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
+        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
         background.setColor(instructionsColor);
         background.setFont(instructionsFont);
-        background.drawString(instruction1, (getWidth() - (int)(instruction1.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() / 3);
-        background.drawString(instruction2, (getWidth() - (int)(instruction2.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() / 2);
-        background.drawString(instruction3, (getWidth() - (int)(instruction3.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 2 / 3);
-        background.drawString(instruction4, (getWidth() - (int)(instruction4.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 5 / 6);
+        background.drawString(instruction1, (getWidth() - (int)(instruction1.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 4 / 13);
+        background.drawString(instruction2, (getWidth() - (int)(instruction2.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 6 / 13);
+        background.drawString(instruction3, (getWidth() - (int)(instruction3.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 8 / 13);
+        background.drawString(instruction4, (getWidth() - (int)(instruction4.length() * instructionsFont.getSize() * 0.58)) / 2, getHeight() * 10 / 13);
         setBackground(background);
         
-        backButton = new Button("Back", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        backButton = new Button("Back", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(backButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     

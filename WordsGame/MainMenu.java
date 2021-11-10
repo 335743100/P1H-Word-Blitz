@@ -12,17 +12,21 @@ public class MainMenu extends World
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
     private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 0);
+    public static final Color titleColor = new Color(255, 0, 255);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Word Blitz";
-    public static final Color highscoreColor = new Color(255, 255, 0);
+    public static final Color easyHighscoreColor = new Color(0, 255, 0);
+    public static final Color normalHighscoreColor = new Color(255, 255, 0);
+    public static final Color hardHighscoreColor = new Color(255, 0, 0);
     public static final Font highscoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String easyHighscore, normalHighscore, hardHighscore;
     
     private Button startButton, difficultyButton, instructionsButton, achievementsButton;
     private int delay = 0;
+    private GreenfootSound backgroundMusic = new GreenfootSound("BackgroundMusic.mp3");
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
+    boolean musicStarted = false;
     private MouseInfo mouse;
     
     public static UserInfo user;
@@ -40,39 +44,58 @@ public class MainMenu extends World
         
         if(UserInfo.isStorageAvailable()){ //update highscore (from Greenfoot UserInfo API)
             user = UserInfo.getMyInfo();
-            //MainMenu.user.setInt(0, 0);
-            //MainMenu.user.setInt(1, 0);
-            //MainMenu.user.setInt(2, 0);
+            
+            //for(int i = 0; i < 3; i++) MainMenu.user.setString(i, "0");
             //MainMenu.user.store();
-            //uncomment the four lines above to reset the user's highscore (must play a round to reset)
+            //uncomment the two lines above to reset the user's highscore
+            
+            //for(int i = 0; i < 10; i++) MainMenu.user.setInt(i, 0);
+            //MainMenu.user.store();
+            //uncomment the two lines above to reset the user's achievements
+            
+            easyHighscore = "EASY HIGHSCORE: " + user.getString(0);
+            normalHighscore = "NORMAL HIGHSCORE: " + user.getString(1);
+            hardHighscore = "HARD HIGHSCORE: " + user.getString(2);
         }
-        easyHighscore = "EASY HIGHSCORE: " + user.getInt(0);
-        normalHighscore = "NORMAL HIGHSCORE: " + user.getInt(1);
-        hardHighscore = "HARD HIGHSCORE: " + user.getInt(2);
+        else{
+            easyHighscore = "EASY HIGHSCORE: 0" ;
+            normalHighscore = "NORMAL HIGHSCORE: 0";
+            hardHighscore = "HARD HIGHSCORE: 0";
+        }
         
         background = new GreenfootImage(WIDTH, HEIGHT);
         background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
-        background.setColor(highscoreColor);
+        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
         background.setFont(highscoreFont);
+        background.setColor(easyHighscoreColor);
         background.drawString(easyHighscore, (getWidth() - (int)(easyHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 4 / 13);
+        background.setColor(normalHighscoreColor);
         background.drawString(normalHighscore, (getWidth() - (int)(normalHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 13);
+        background.setColor(hardHighscoreColor);
         background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 13);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        startButton = new Button("Start Game", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3.0 / 5));
         
-        difficultyButton = new Button("Difficulty", Color.BLACK, Color.GREEN, Color.WHITE, Color.BLUE, Color.RED);
+        difficultyButton = new Button("Difficulty", Color.BLACK, titleColor, Color.WHITE, Color.BLUE, Color.RED);
         addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
         
-        instructionsButton = new Button("How To Play", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        instructionsButton = new Button("How To Play", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(instructionsButton, WIDTH / 7, (int)(HEIGHT * 4.5 / 5));
         
-        achievementsButton = new Button("Achievements", Color.BLACK, Color.GREEN, Color.WHITE, Color.YELLOW, Color.RED);
+        achievementsButton = new Button("Achievements", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 4.5 / 5));
+    }
+    
+    public void started(){
+        if(!musicStarted){
+            backgroundMusic.setVolume(30);
+            backgroundMusic.playLoop();
+            musicStarted = true;
+        }
     }
     
     public void act(){
