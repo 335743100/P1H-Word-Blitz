@@ -8,9 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SlidingWord extends Actor
 {
-    public static Font COURIER_NEW = new Font("Courier New", 30);
-    public static int WIDTH = 850;
-    public static int HEIGHT = 480;
+    public static final int WIDTH = GameWorld.WIDTH;
+    public static final int HEIGHT = GameWorld.HEIGHT;
+    
+    public static final Color wordColor = new Color(255, 255, 255);
+    public static final Font wordFont = new Font("Courier New", 30);
+    
     private String slidingWord = "";
     private int slidingX = 0;
     private int slidingY = 0;
@@ -24,17 +27,16 @@ public class SlidingWord extends Actor
      * Act method. Slides a word if there is one in queue
      */
     public void act() {
-        if (slidingWord.length() > 0) {
-            if (slidingY < slidingYEnd) {
+        if(slidingWord.length() > 0){
+            if(slidingY < slidingYEnd){
                 GreenfootImage display = new GreenfootImage(WIDTH, HEIGHT);
-                display.setFont(COURIER_NEW);
-                display.setColor(Color.WHITE);
+                display.setColor(wordColor);
+                display.setFont(wordFont);
                 display.drawString(slidingWord, slidingX, slidingY);
                 slidingY+=3;
                 setImage(display);
-            } else {
-                slidingWord = "";
             }
+            else slidingWord = "";
         }
     }
     
@@ -51,5 +53,4 @@ public class SlidingWord extends Actor
         slidingY = y;
         slidingYEnd = y2;
     }
-        
 }
