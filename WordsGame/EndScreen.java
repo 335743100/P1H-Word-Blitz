@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
  * Write a description of class EndScreen here.
@@ -11,14 +12,16 @@ public class EndScreen extends World
     private GreenfootImage background;
     private static final int WIDTH = GameWorld.WIDTH;
     private static final int HEIGHT = GameWorld.HEIGHT;
-    public static final Color bgColor = new Color(52, 232, 235);
-    public static final Color titleColor = new Color(255, 0, 0);
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
+    public static final Color titleColor = new Color(255, 0, 255);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "GAME OVER";
-    public static final Color scoreColor = new Color(0, 0, 255);
+    public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = new Font("Courier New", true, false, HEIGHT / 20);
     private String score;
     private String highscore = "NEW HIGHSCORE!";
+    
+    private ArrayList<Integer> medals;
     
     private Button returnButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
@@ -33,43 +36,141 @@ public class EndScreen extends World
         
         score = "SCORE: " + Integer.toString(GameWorld.score);
         
+        medals = ScoreDisplay.medalsUnlocked;
+        
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(bgColor);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 5);
+        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
         background.setColor(scoreColor);
         background.setFont(scoreFont);
-        background.drawString(score, (getWidth() - (int)(score.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 3);
-        if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > MainMenu.user.getInt(0)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(0, GameWorld.score);
+        background.drawString(score, (getWidth() - (int)(score.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 4);
+        if(UserInfo.isStorageAvailable()){
+            MainMenu.user = UserInfo.getMyInfo();
+            if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > Integer.parseInt(MainMenu.user.getString(0))){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                MainMenu.user.setString(0, Integer.toString(GameWorld.score));
+            }
+            else if(Difficulty.gameDifficulty == Difficulty.NORMAL && GameWorld.score > Integer.parseInt(MainMenu.user.getString(1))){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                MainMenu.user.setString(1, Integer.toString(GameWorld.score));
+            }
+            else if(Difficulty.gameDifficulty == Difficulty.HARD && GameWorld.score > Integer.parseInt(MainMenu.user.getString(2))){
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                MainMenu.user.setString(2, Integer.toString(GameWorld.score));
+            }
+            MainMenu.user.setInt(9, MainMenu.user.getInt(9) + 1);
             MainMenu.user.store();
+            if(MainMenu.user.getInt(9) >= 100) medals.add(9);
         }
-        else if(Difficulty.gameDifficulty == Difficulty.NORMAL && GameWorld.score > MainMenu.user.getInt(1)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(1, GameWorld.score);
-            MainMenu.user.store();
-        }
-        else if(Difficulty.gameDifficulty == Difficulty.HARD && GameWorld.score > MainMenu.user.getInt(2)){
-            background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 2);
-            MainMenu.user.setInt(2, GameWorld.score);
-            MainMenu.user.store();
-        }
-        //MainMenu.user.setInt(0, 0);
-        //MainMenu.user.setInt(1, 0);
-        //MainMenu.user.setInt(2, 0);
-        //MainMenu.user.store();
-        //uncomment the four lines above to reset the user's highscore (must play a round to reset)
-        setBackground(background);        
+        if(medals.size() > 0) background.drawString("NEW ACHIEVEMENTS!", (getWidth() - (int)(17 * scoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 7);
+        setBackground(background);
         
-        returnButton = new Button("Return", Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
-        addObject(returnButton, WIDTH / 8, HEIGHT * 9 /10);
+        addMedals();
+        
+        returnButton = new Button("Return", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        addObject(returnButton, WIDTH / 7, HEIGHT * 9 /10);
+    }
+    
+    private void addMedals(){
+        int numMedals = medals.size();
+        int medal = 0;
+        if(numMedals == 1){
+            addObject(new Achievement(medals.get(0), true, false), WIDTH / 2, HEIGHT * 17 / 28);
+        }
+        else if(numMedals == 2){
+            int x = 2;
+            for(int i = 0; i < 2; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 17 / 28);
+                x++;
+            }
+        }
+        else if(numMedals == 3){
+            int x = 3;
+            for(int i = 0; i < 3; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 17 / 28);
+                x += 2;
+            }
+        }
+        else if(numMedals == 4){
+            int x = 1;
+            for(int i = 0; i < 4; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 17 / 28);
+                x++;
+            }
+        }
+        else if(numMedals == 5){
+            int x = 1;
+            for(int i = 0; i < 5; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 17 / 28);
+                x += 2;
+            }
+        }
+        else if(numMedals == 6){
+            int x = 3;
+            for(int i = 0; i < 3; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                x += 2;
+            }
+            x = 3;
+            for(int i = 3; i < 6; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                x += 2;
+            }
+        }
+        else if(numMedals == 7){
+            int x = 3;
+            for(int i = 0; i < 3; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                x += 2;
+            }
+            x = 1;
+            for(int i = 3; i < 7; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 5 / 7);
+                x++;
+            }
+        }
+        else if(numMedals == 8){
+            int x = 1;
+            for(int i = 0; i < 4; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 1 / 2);
+                x++;
+            }
+            x = 1;
+            for(int i = 4; i < 8; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 5 / 7);
+                x++;
+            }
+        }
+        else if(numMedals == 9){
+            int x = 1;
+            for(int i = 0; i < 4; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 5, HEIGHT * 1 / 2);
+                x++;
+            }
+            x = 1;
+            for(int i = 4; i < 9; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                x += 2;
+            }
+        }
+        else if(numMedals == 10){
+            int x = 1;
+            for(int i = 0; i < 5; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 1 / 2);
+                x += 2;
+            }
+            x = 1;
+            for(int i = 5; i < 10; i++){
+                addObject(new Achievement(medals.get(i), true, false), WIDTH * x / 10, HEIGHT * 5 / 7);
+                x += 2;
+            }
+        }
     }
     
     public void act(){
-        if(Greenfoot.mouseClicked(returnButton)){
+        if(Greenfoot.mouseClicked(returnButton) || (returnButton.isHovering() && Greenfoot.isKeyDown("space"))){
             //menuMusic.stop();
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());

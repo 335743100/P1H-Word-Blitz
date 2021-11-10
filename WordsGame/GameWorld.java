@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.lang.Math;
@@ -12,9 +13,9 @@ import java.util.Arrays;
  * @version 0.0.2
  */ 
 public class GameWorld extends World {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 500;
-    private static Color BACKGROUND_COLOR = new Color(52, 232, 235);
+    public static final int WIDTH = 850;
+    public static final int HEIGHT = 480;
+    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     
     // Word bank
     private ArrayList<String> nouns;
@@ -26,7 +27,6 @@ public class GameWorld extends World {
     private WordBox wordBox;
     private CorrectWordOverlay correctWordOverlay = new CorrectWordOverlay();
     private WrongWordOverlay wrongWordOverlay = new WrongWordOverlay();
-    private CheckInput checkInput = new CheckInput();
     
     //timebar and how much time variables (360 = 1 second)
     private StatBar timeBar;
@@ -47,10 +47,8 @@ public class GameWorld extends World {
     private String punc = "`~!@#$%^&*()-_=+[{]}|\\;:'\",<.>/?";
     
     //sound effects
-    private GreenfootSound correctSound = new GreenfootSound("Correct.wav");
-    private GreenfootSound wrongSound = new GreenfootSound("Wrong.wav");
-    private GreenfootSound[] correctSounds, wrongSounds;
-    private int correctSoundIndex, wrongSoundIndex;
+    private GreenfootSound[] correctSounds, wrongSounds, achievementSounds;
+    private int correctSoundIndex, wrongSoundIndex, achievementSoundIndex;
     
     //boolean to keep track of key release
     private boolean keyDown, spaceDown;
@@ -66,13 +64,14 @@ public class GameWorld extends World {
     // Keep track of how long the game has been running
     private int gameTime;
     
-    // Keep track of the number of right and wrong characters to calculate
-    // accuracy
+    // Keep track of the number of right and wrong characters to calculate accuracy
     private int totalWrongChars;
     private int totalRightChars;
 
     // How fast the timer should go down
     private float speed;
+    
+    int numMedals;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -81,8 +80,7 @@ public class GameWorld extends World {
     public GameWorld(float speed) {
         super(WIDTH, HEIGHT, 1);
         GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
-        background.setColor(BACKGROUND_COLOR);
-        background.fill();
+        background.drawImage(bgImage, 0, 0);
         setBackground(background);
         
         listOfWordTypes = ReadWordFiles.readWordFiles();
@@ -97,11 +95,10 @@ public class GameWorld extends World {
         }
         // White box to display the words
         wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
-        addObject(wordBox, 400, 250);
+        addObject(wordBox, WIDTH / 2, HEIGHT / 2);
         
-        addObject(correctWordOverlay, 400, 250);
-        addObject(wrongWordOverlay, 400, 250);
-        addObject(checkInput, 500, 300);
+        addObject(correctWordOverlay, WIDTH / 2, HEIGHT / 2);
+        addObject(wrongWordOverlay, WIDTH / 2, HEIGHT / 2);
         
         correctSoundIndex = 0;
         correctSounds = new GreenfootSound[5];
@@ -109,6 +106,12 @@ public class GameWorld extends World {
         wrongSoundIndex = 0;
         wrongSounds = new GreenfootSound[15];
         for(int i = 0; i < wrongSounds.length; i++) wrongSounds[i] = new GreenfootSound("Wrong.wav");
+        achievementSoundIndex = 0;
+        achievementSounds = new GreenfootSound[10];
+        for(int i = 0; i < achievementSounds.length; i++){
+            achievementSounds[i] = new GreenfootSound("Achievement.wav");
+            achievementSounds[i].setVolume(70); 
+        }
         
         key = null;
         keyDown = false;
@@ -124,6 +127,8 @@ public class GameWorld extends World {
         
         scoreDisplay = new ScoreDisplay(score);
         addObject(scoreDisplay, scoreDisplay.SCORE_DISPLAY_WIDTH / 2, scoreDisplay.SCORE_DISPLAY_HEIGHT / 2);
+        
+        numMedals = 0;
         
         currentWord = playerWordQueue.remove();
         playerInput = "";
@@ -153,8 +158,29 @@ public class GameWorld extends World {
             }
         }
         
+        if(numMedals != ScoreDisplay.medalsUnlocked.size()){
+            for(int i = numMedals; i < ScoreDisplay.medalsUnlocked.size(); i++){
+                int medal = ScoreDisplay.medalsUnlocked.get(i);
+                if(medal == 0) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT / 5);
+                else if(medal == 3) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 2 / 5);
+                else if(medal == 6) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 3 / 5);
+                else if(medal == 1) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT / 5);
+                else if(medal == 4) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 2 / 5);
+                else if(medal == 7) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 3 / 5);
+                else addObject(new Achievement(medal, true, true), WIDTH * 149 / 170, HEIGHT * 4 / 5);
+                
+                achievementSounds[achievementSoundIndex].play();
+                achievementSoundIndex++;
+                if(achievementSoundIndex >= achievementSounds.length) achievementSoundIndex = 0;
+            }
+            numMedals = ScoreDisplay.medalsUnlocked.size();
+        }
+        
         time -= this.speed;
-        if(time <= 0) Greenfoot.setWorld(new EndScreen());
+        if(time <= 0){
+            Collections.sort(ScoreDisplay.medalsUnlocked);
+            Greenfoot.setWorld(new EndScreen());
+        }
         timeBar.update((int)time);
         
         gameTime++;

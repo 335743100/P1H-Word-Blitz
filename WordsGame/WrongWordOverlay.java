@@ -12,7 +12,7 @@ public class WrongWordOverlay extends Actor
 {
     public static Font textFont = new Font("Courier New", true, false, 20);
     public static int WIDTH = 500;
-    public static int HEIGHT = 300;
+    public static int HEIGHT = 150;
     
     public WrongWordOverlay() {
         setImage(new GreenfootImage(WIDTH, HEIGHT));
@@ -26,7 +26,7 @@ public class WrongWordOverlay extends Actor
         }
         display.setColor(Color.RED);
         display.setFont(textFont);
-        display.drawString(displayString, 21 + (int)((numCorrect) * textFont.getSize() * 0.58), 20);
+        display.drawString(displayString, 20 + (int)((numCorrect) * textFont.getSize() * 0.6), 20);
         if(clear) display.clear();
         setImage(display);
         if(clear) display.clear();

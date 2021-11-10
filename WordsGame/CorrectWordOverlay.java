@@ -12,7 +12,7 @@ public class CorrectWordOverlay extends Actor
 {
     public static Font textFont = new Font("Courier New", true, false, 20);
     public static int WIDTH = 500;
-    public static int HEIGHT = 300;
+    public static int HEIGHT = 150;
     
     public CorrectWordOverlay() {
         setImage(new GreenfootImage(WIDTH, HEIGHT));
