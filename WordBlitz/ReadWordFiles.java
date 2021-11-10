@@ -12,7 +12,9 @@ import java.util.Scanner;
  * @version 1.0.0
  */
 public class ReadWordFiles {
+    // Accesses the word files and saves the words to their respective lists
     public static ArrayList<ArrayList<String>> readWordFiles() {
+        // Create the word lists
         ArrayList<String> nouns = new ArrayList<String>();
         ArrayList<String> verbs = new ArrayList<String>();
         ArrayList<String> adjectives = new ArrayList<String>();
@@ -23,16 +25,16 @@ public class ReadWordFiles {
         
         String[] types = {"nouns.txt", "verbs.txt", "adjectives.txt"};
         
-        try {
-            for (int i = 0; i < 3; i++) {
+        // Reads the words in the files and adds them to their lists
+        try{
+            for(int i = 0; i < 3; i++){
                 File file = new File(types[i]);
                 Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    lst.get(i).add(scanner.nextLine());
-                }
+                while(scanner.hasNextLine()) lst.get(i).add(scanner.nextLine());
                 scanner.close();
             }
-        } catch (FileNotFoundException ignored) {}
+        }
+        catch(FileNotFoundException ignored){}
         
         return lst;
     }

@@ -9,26 +9,30 @@ import java.lang.Math;
  * @author Edison Lim, Vaughn Chan, Jaylen Cheung
  * @version November 9, 2021
  */
-public class ScoreDisplay extends Actor
+public class StatDisplay extends Actor
 {
-    public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH / 3;
-    public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT;
+    // Actor Dimensions
+    public static final int WIDTH = GameWorld.WIDTH / 3;
+    public static final int HEIGHT = GameWorld.HEIGHT;
     
-    //declaring variables for the score display's image
+    // Image Variables
     private GreenfootImage image;
     public static final Color SCORE_COLOR = new Color(255, 255, 0);
     public static final Font SCORE_FONT = MainMenu.HIGHSCORE_FONT;
     
-    //declaring instance variables
+    // Variables to keep track of the stats
     private int score, wpm, accuracy;
     private String scoreDisplay, wpmDisplay, accuracyDisplay;
     
-    public static ArrayList<Integer> medalsUnlocked;
+    public static ArrayList<Integer> medalsUnlocked; // Variable to keep track of what medals were unlocked during the game
     
-    public ScoreDisplay(int score){
-        image =  new GreenfootImage(SCORE_DISPLAY_WIDTH + 1, SCORE_DISPLAY_HEIGHT + 1);
+    /**
+     * Constructor for the stat display
+     */
+    public StatDisplay(int score){
+        image =  new GreenfootImage(WIDTH + 1, HEIGHT + 1);
         
-        //setting the player's stats
+        // Setting the player's stats
         this.score = score;
         wpm = 0;
         accuracy = 0;
@@ -38,23 +42,24 @@ public class ScoreDisplay extends Actor
         
         medalsUnlocked = new ArrayList<Integer>();
         
-        drawScoreDisplay();
+        drawStatDisplay();
     }
     
     /**
-     * Method to update the player's score
+     * Updates the player's stats
      */
     public void update(int score, int gameTime, int correct, int incorrect) 
     {
-        //updating the score and the display
+        // Updating the stats and the display
         this.score = score;
         if(gameTime / 60 != 0) wpm = 60 * (score / 5) / (gameTime / 60);
         this.accuracy = (int) Math.round((1.0*correct / (correct + incorrect)) * 100);
         wpmDisplay = "WPM: " + wpm;
         scoreDisplay = "SCORE: " + this.score;
         accuracyDisplay = "ACCURACY: " + this.accuracy + "%";
-        drawScoreDisplay();
+        drawStatDisplay();
         
+        // Gets user info and saves their new achievements if they fulfilled its requirements
         if(UserInfo.isStorageAvailable()){
             if(score >= 200 && wpm >= 70 && MainMenu.user.getInt(0) == 0){
                 MainMenu.user.setInt(0, 1);
@@ -100,16 +105,16 @@ public class ScoreDisplay extends Actor
     }
     
     /**
-     * Method to draw the score display
+     * Draws the stat display
      */
-    private void drawScoreDisplay(){
+    private void drawStatDisplay(){
         //drawing the display
         image.clear();
         image.setColor(SCORE_COLOR);
         image.setFont(SCORE_FONT);
-        image.drawString(scoreDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) / 4);
-        image.drawString(wpmDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) / 2);
-        image.drawString(accuracyDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) * 3 / 4);
+        image.drawString(scoreDisplay, WIDTH / 10, (HEIGHT - SCORE_FONT.getSize()) / 4);
+        image.drawString(wpmDisplay, WIDTH / 10, (HEIGHT - SCORE_FONT.getSize()) / 2);
+        image.drawString(accuracyDisplay, WIDTH / 10, (HEIGHT - SCORE_FONT.getSize()) * 3 / 4);
         setImage(image);
     }
 }

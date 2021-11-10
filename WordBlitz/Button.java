@@ -1,56 +1,63 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * General button class
+ * Button Class
  * 
- * @author (your name) Format by Mr. Cohen
+ * @author (your name)
  * @version (a version number or a date)
  */
 public class Button extends Actor
 {
-    public static final int BUTTON_WIDTH = GameWorld.WIDTH * 96 / 425;
-    public static final int BUTTON_HEIGHT = GameWorld.HEIGHT * 9 / 88;
+    // Actor Dimensions
+    public static final int WIDTH = GameWorld.WIDTH * 96 / 425;
+    public static final int HEIGHT = GameWorld.HEIGHT * 9 / 88;
     
-    //declaring variables for the button's image
+    //Image Variables
     private GreenfootImage image;
     private Color bgColor;
     private Color outlineColor;
     private Color labelColor;
     private Color hoverColor;
     private Color flashColor;
-    public static final Font LABEL_FONT = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
+    public static final Font LABEL_FONT = new Font("Courier New", true, false, HEIGHT / 2);
     private String label;
     
-    //declaring instance variables
-    //sound
+    // Sound Effect Variables
     private GreenfootSound moveSound = new GreenfootSound("Menu Move.wav");
     private boolean soundPlayed = false;
     
-    //button state tracking
+    // Button State Variables
     private boolean hovering = false;
     private boolean flashing = false;
     private int duration;
     
-    //mouse tracking
-    private MouseInfo mouse;
+    private MouseInfo mouse; // Variable to get the mouse info
     
+    /**
+     * Constructor for the button
+     */
     public Button(String label, Color bgColor, Color outlineColor, Color labelColor, Color hoverColor, Color flashColor){
-        image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons
+        image = new GreenfootImage(WIDTH + 1, HEIGHT + 1);
+        
         this.label = label;
-        //setting the image for the button
         this.bgColor = bgColor;
         this.outlineColor = outlineColor;
         this.labelColor = labelColor;
         this.hoverColor = hoverColor;
         this.flashColor = flashColor;
+        
         drawButton(flashing);
         setImage(image);
     }
     
+    /**
+     * Act method. Changes the appearance of the button
+     */
     public void act() 
     {
         mouse = Greenfoot.getMouseInfo();
-        //changes button label's color when the mouse is hovering over it (from Mr. Cohen)
+        
+        // Changes button label's color when the mouse is hovering over it
         if(Greenfoot.mouseMoved(this)){
             hovering = true;
             if(!soundPlayed){ //adds sound
@@ -66,6 +73,8 @@ public class Button extends Actor
             drawButton(flashing);
             setImage(image);
         }
+        
+        // Flashes the button
         if(flashing){
             if(duration == 0){
                 flashing = false;
@@ -75,12 +84,18 @@ public class Button extends Actor
         }
     }
     
+    /**
+     * Changed the button's label
+     */
     public void update(String label){
         this.label = label;
         drawButton(flashing);
         this.setImage(image);
     }
     
+    /**
+     * Changes the label and background color to the colors set in the parameter
+     */
     public void changeColor(Color labelColor, Color bgColor)
     {
         this.labelColor = labelColor;
@@ -88,17 +103,25 @@ public class Button extends Actor
         update(this.label);
     }
     
+    /**
+     * Flashes the button for the duration set in the parameter
+     */
     public void flash(int duration){
         this.duration = duration;
         flashing = true;
         drawButton(flashing);
     }
     
+    /**
+     * Returns true if the mouse is currently hovering the button
+     */
     public boolean isHovering(){
         return hovering;
     }
     
-    //method to draw the button with the given parameters
+    /**
+     * Draws the button
+     */
     private void drawButton(boolean flashing){
         image.clear();
         //drawing button

@@ -1,3 +1,6 @@
+/**
+ * Difficulty setter
+ */
 public enum Difficulty {
     EASY (0.5f),
     NORMAL (1.5f),

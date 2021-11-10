@@ -9,9 +9,11 @@ import java.util.ArrayList;
  */
 public class EndScreen extends World
 {
+    // World Dimensions
     public static final int WIDTH = GameWorld.WIDTH;
     public static final int HEIGHT = GameWorld.HEIGHT;
     
+    // Background Variables
     private GreenfootImage background;
     public static final GreenfootImage BG_IMAGE = MainMenu.BG_IMAGE;
     public static final Color TITLE_COLOR = MainMenu.TITLE_COLOR;
@@ -22,10 +24,11 @@ public class EndScreen extends World
     private String score;
     private String highscore = "NEW HIGHSCORE!";
     
+    // Button Variables
     private Button returnButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     
-    private ArrayList<Integer> medals;
+    private ArrayList<Integer> medals; // ArrayList to keep track of what medals the user has unlocked during the game
     
     /**
      * Constructor for objects of class EndScreen.
@@ -35,10 +38,11 @@ public class EndScreen extends World
         // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
         
-        score = "SCORE: " + Integer.toString(GameWorld.score);
+        score = "SCORE: " + Integer.toString(GameWorld.score); // Get score
         
-        medals = ScoreDisplay.medalsUnlocked;
+        medals = StatDisplay.medalsUnlocked; // Get medals
         
+        // Drawing background
         background = new GreenfootImage(WIDTH, HEIGHT);
         background.drawImage(BG_IMAGE, 0, 0);
         background.setColor(TITLE_COLOR);
@@ -47,6 +51,7 @@ public class EndScreen extends World
         background.setColor(SCORE_COLOR);
         background.setFont(SCORE_FONT);
         background.drawString(score, (getWidth() - (int)(score.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() / 4);
+        // Gets the user's info and checks if they beat their highscore, if they did, set their new highscore
         if(UserInfo.isStorageAvailable()){
             MainMenu.user = UserInfo.getMyInfo();
             if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > Integer.parseInt(MainMenu.user.getString(0))){
@@ -61,19 +66,24 @@ public class EndScreen extends World
                 background.drawString(highscore, (getWidth() - (int)(highscore.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
                 MainMenu.user.setString(2, Integer.toString(GameWorld.score));
             }
-            MainMenu.user.setInt(9, MainMenu.user.getInt(9) + 1);
+            MainMenu.user.setInt(9, MainMenu.user.getInt(9) + 1); // Increase the total amount of games they played by one
             MainMenu.user.store();
             if(MainMenu.user.getInt(9) >= 100) medals.add(9);
         }
         if(medals.size() > 0) background.drawString("NEW ACHIEVEMENTS!", (getWidth() - (int)(17 * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 6 / 7);
         setBackground(background);
         
+        // Adds the medals that the user just unlocked to the screen
         addMedals();
         
+        // Adding button
         returnButton = new Button("Return", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(returnButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     
+    /**
+     * Display the medals that the user just unlocked
+     */
     private void addMedals(){
         int numMedals = medals.size();
         
@@ -170,7 +180,11 @@ public class EndScreen extends World
         }
     }
     
+    /**
+     * Act method. Checks for button press
+     */
     public void act(){
+        // Takes the user back to the main menu
         if(Greenfoot.mouseClicked(returnButton) || (returnButton.isHovering() && Greenfoot.isKeyDown("space"))){
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());

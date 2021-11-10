@@ -6,11 +6,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Edison Lim, Vaughn Chan, Jaylen Cheung
  * @version November 9, 2021
  */
-public class AchievementsMenu extends World
+public class AchievementsPage extends World
 {
+    // World Dimensions
     public static final int WIDTH = GameWorld.WIDTH;
     public static final int HEIGHT = GameWorld.HEIGHT;
     
+    // Background Variables
     private GreenfootImage background;
     public static final GreenfootImage BG_IMAGE = MainMenu.BG_IMAGE;
     public static final Color TITLE_COLOR = MainMenu.TITLE_COLOR;
@@ -19,17 +21,19 @@ public class AchievementsMenu extends World
     public static final Color ACHIEVEMENTS_COLOR = InstructionsMenu.INSTRUCTIONS_COLOR;
     public static final Font ACHIEVEMENTS_FONT = MainMenu.HIGHSCORE_FONT;
     
+    // Button Variables
     private Button backButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     
     /**
      * Constructor for objects of class AchievementsMenu.
      */
-    public AchievementsMenu()
+    public AchievementsPage()
     {    
         // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
         
+        // Drawing background
         background = new GreenfootImage(WIDTH, HEIGHT);
         background.drawImage(BG_IMAGE, 0, 0);
         background.setColor(TITLE_COLOR);
@@ -39,6 +43,7 @@ public class AchievementsMenu extends World
         background.setFont(ACHIEVEMENTS_FONT);
         setBackground(background);
         
+        // Gets the user's info and displays their achievements
         if(UserInfo.isStorageAvailable()){
             if(MainMenu.user.getInt(0) == 0){ //70 wpm at 200 points
                 Achievement bronze1 = new Achievement(0, false, false);
@@ -122,14 +127,16 @@ public class AchievementsMenu extends World
             }
         }
         
+        // Adding button
         backButton = new Button("Back", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(backButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     
     /**
-     * Act method. Check for button presses to change world
+     * Act method. Checks for button press.
      */
     public void act(){
+        // Takes the user back to the main menu
         if(Greenfoot.mouseClicked(backButton) || (backButton.isHovering() && Greenfoot.isKeyDown("space"))){
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());
