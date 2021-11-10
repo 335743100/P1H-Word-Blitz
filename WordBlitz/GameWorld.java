@@ -15,7 +15,9 @@ import java.util.Arrays;
 public class GameWorld extends World {
     public static final int WIDTH = 850;
     public static final int HEIGHT = 480;
-    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
+    
+    private GreenfootImage background;
+    public static GreenfootImage bgImage = MainMenu.bgImage;
     
     // Word bank
     private ArrayList<String> nouns;
@@ -80,8 +82,10 @@ public class GameWorld extends World {
      * Constructor for objects of class MyWorld.
      */
     public GameWorld(float speed) {
+        // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
-        GreenfootImage background = new GreenfootImage(WIDTH, HEIGHT);
+        
+        background = new GreenfootImage(WIDTH, HEIGHT);
         background.drawImage(bgImage, 0, 0);
         setBackground(background);
         

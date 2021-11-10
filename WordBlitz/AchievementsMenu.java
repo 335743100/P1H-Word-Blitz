@@ -8,15 +8,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class AchievementsMenu extends World
 {
+    public static final int WIDTH = GameWorld.WIDTH;
+    public static final int HEIGHT = GameWorld.HEIGHT;
+    
     private GreenfootImage background;
-    private static final int WIDTH = GameWorld.WIDTH;
-    private static final int HEIGHT = GameWorld.HEIGHT;
-    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 255);
-    public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
+    public static GreenfootImage bgImage = MainMenu.bgImage;
+    public static final Color titleColor = MainMenu.titleColor;
+    public static Font titleFont = MainMenu.titleFont;
     private String title = "Achievements";
-    public static final Color achievementsColor = new Color(255, 255, 0);
-    public static final Font achievementsFont = new Font("Courier New", true, false, HEIGHT / 20);
+    public static final Color achievementsColor = InstructionsMenu.instructionsColor;
+    public static final Font achievementsFont = MainMenu.highscoreFont;
     
     private Button backButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
@@ -26,8 +27,9 @@ public class AchievementsMenu extends World
      */
     public AchievementsMenu()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
+        
         background = new GreenfootImage(WIDTH, HEIGHT);
         background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
@@ -129,7 +131,6 @@ public class AchievementsMenu extends World
      */
     public void act(){
         if(Greenfoot.mouseClicked(backButton) || (backButton.isHovering() && Greenfoot.isKeyDown("space"))){
-            //menuMusic.stop();
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());
         }

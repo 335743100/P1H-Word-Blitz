@@ -9,10 +9,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MainMenu extends World
 {
+    public static final int WIDTH = GameWorld.WIDTH;
+    public static final int HEIGHT = GameWorld.HEIGHT;
+    
     private GreenfootImage background;
-    private static final int WIDTH = GameWorld.WIDTH;
-    private static final int HEIGHT = GameWorld.HEIGHT;
-    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
+    public static GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     public static final Color titleColor = new Color(255, 0, 255);
     public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Word Blitz";
@@ -23,13 +24,14 @@ public class MainMenu extends World
     private String easyHighscore, normalHighscore, hardHighscore;
     
     private Button startButton, difficultyButton, instructionsButton, achievementsButton;
-    private int delay = 0;
-    private GreenfootSound backgroundMusic = new GreenfootSound("BackgroundMusic.mp3");
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
-    boolean musicStarted = false;
-    private MouseInfo mouse;
+    private int buttonDelay = 0;
     
+    private GreenfootSound backgroundMusic = new GreenfootSound("BackgroundMusic.mp3");
+    boolean musicStarted = false;
+    
+    private MouseInfo mouse;
     public static UserInfo user;
 
     private Difficulty currentDifficulty = Difficulty.NOT_SET;
@@ -40,7 +42,7 @@ public class MainMenu extends World
      */
     public MainMenu()
     {    
-        // Create a new world with 800x600 cells with a cell size of 1x1 pixels.
+        // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
         
         if(UserInfo.isStorageAvailable()){ //update highscore (from Greenfoot UserInfo API)
@@ -68,27 +70,27 @@ public class MainMenu extends World
         background.drawImage(bgImage, 0, 0);
         background.setColor(titleColor);
         background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
+        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.6)) / 2, getHeight() / 7);
         background.setFont(highscoreFont);
         background.setColor(easyHighscoreColor);
-        background.drawString(easyHighscore, (getWidth() - (int)(easyHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 4 / 13);
+        background.drawString(easyHighscore, (getWidth() - (int)(easyHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 2 / 7);
         background.setColor(normalHighscoreColor);
-        background.drawString(normalHighscore, (getWidth() - (int)(normalHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 13);
+        background.drawString(normalHighscore, (getWidth() - (int)(normalHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
         background.setColor(hardHighscoreColor);
-        background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 13);
+        background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 3 / 7);
         setBackground(background);
         
         startButton = new Button("Start Game", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
-        addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3.0 / 5));
+        addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3 / 5));
         
         difficultyButton = new Button("Difficulty", Color.BLACK, titleColor, Color.WHITE, Color.BLUE, Color.RED);
-        addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3.7 / 5));
+        addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3 / 4));
         
         instructionsButton = new Button("How To Play", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
-        addObject(instructionsButton, WIDTH / 7, (int)(HEIGHT * 4.5 / 5));
+        addObject(instructionsButton, WIDTH / 7, (int)(HEIGHT * 9 / 10));
         
         achievementsButton = new Button("Achievements", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
-        addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 4.5 / 5));
+        addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 9 / 10));
     }
     
     /*
@@ -107,6 +109,7 @@ public class MainMenu extends World
      */
     public void act(){
         mouse = Greenfoot.getMouseInfo();
+        
         if((Greenfoot.mouseClicked(startButton) || (startButton.isHovering() && Greenfoot.isKeyDown("space"))) && currentDifficulty != Difficulty.NOT_SET){
             clickSound.play();
             Greenfoot.setWorld(new GameWorld(currentDifficulty.speed));
@@ -116,10 +119,10 @@ public class MainMenu extends World
             difficultyButton.flash(30);
         }
         else if (Greenfoot.mouseClicked(difficultyButton) || (difficultyButton.isHovering() && Greenfoot.isKeyDown("space"))){
-            if(delay == 0){
+            if(buttonDelay == 0){
                 clickSound.play();
                 changeDifficulty();
-                delay = 10;
+                buttonDelay = 10;
             }
         }
         else if(Greenfoot.mouseClicked(instructionsButton) || (instructionsButton.isHovering() && Greenfoot.isKeyDown("space"))){
@@ -130,7 +133,7 @@ public class MainMenu extends World
             clickSound.play();
             Greenfoot.setWorld(new AchievementsMenu());
         }
-        if(delay > 0) delay--;
+        if(buttonDelay > 0) buttonDelay--;
     }
     
     /*

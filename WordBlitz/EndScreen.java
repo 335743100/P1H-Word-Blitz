@@ -9,28 +9,30 @@ import java.util.ArrayList;
  */
 public class EndScreen extends World
 {
+    public static final int WIDTH = GameWorld.WIDTH;
+    public static final int HEIGHT = GameWorld.HEIGHT;
+    
     private GreenfootImage background;
-    private static final int WIDTH = GameWorld.WIDTH;
-    private static final int HEIGHT = GameWorld.HEIGHT;
-    private GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 255);
-    public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
+    public static GreenfootImage bgImage = MainMenu.bgImage;
+    public static final Color titleColor = MainMenu.titleColor;
+    public static Font titleFont = MainMenu.titleFont;
     private String title = "GAME OVER";
-    public static final Color scoreColor = new Color(255, 255, 0);
-    public static final Font scoreFont = new Font("Courier New", true, false, HEIGHT / 20);
+    public static final Color scoreColor = InstructionsMenu.instructionsColor;
+    public static final Font scoreFont = MainMenu.highscoreFont;
     private String score;
     private String highscore = "NEW HIGHSCORE!";
     
-    private ArrayList<Integer> medals;
-    
     private Button returnButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
+    
+    private ArrayList<Integer> medals;
+    
     /**
      * Constructor for objects of class EndScreen.
      */
     public EndScreen()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        // Create a new world with WIDTH*HEIGHT cells with a cell size of 1x1 pixels.
         super(WIDTH, HEIGHT, 1);
         
         score = "SCORE: " + Integer.toString(GameWorld.score);
@@ -74,7 +76,7 @@ public class EndScreen extends World
     
     private void addMedals(){
         int numMedals = medals.size();
-        int medal = 0;
+        
         if(numMedals == 1){
             addObject(new Achievement(medals.get(0), true, false), WIDTH / 2, HEIGHT * 17 / 28);
         }
@@ -170,7 +172,6 @@ public class EndScreen extends World
     
     public void act(){
         if(Greenfoot.mouseClicked(returnButton) || (returnButton.isHovering() && Greenfoot.isKeyDown("space"))){
-            //menuMusic.stop();
             clickSound.play();
             Greenfoot.setWorld(new MainMenu());
         }
