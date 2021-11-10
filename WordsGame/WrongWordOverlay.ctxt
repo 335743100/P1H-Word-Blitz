@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=WrongWordOverlay
-comment0.text=\r\n\ Displays\ the\ letters\ the\ player\ has\ typed\ in\ another\ colour\ on\ top\ of\ the\ \r\n\ word\ bank.\r\n\ \r\n\ @author\ Jaylen\ Cheung\r\n\ @version\ 1.0.0\r\n
-comment1.params=
-comment1.target=WrongWordOverlay()
-comment2.params=word\ numCorrect\ numWrong\ clear
-comment2.target=void\ setWrongOverlay(java.lang.String,\ int,\ int,\ boolean)
-numComments=3
