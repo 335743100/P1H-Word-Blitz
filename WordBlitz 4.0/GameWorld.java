@@ -242,7 +242,7 @@ public class GameWorld extends World {
                 totalWrongChars++;
             }
             // Update visual effects
-            slideOut.setSlidingWord(currentWord, 296, 390, 500, true);
+            slideOut.setSlidingWord(currentWord, 296, 390, 500, false);
             scoreDisplay.update(score, gameTime, totalRightChars, totalWrongChars);
             String newWord = generateWords(1).get(0) + " ";
             playerWordQueue.add(newWord);
