@@ -13,14 +13,14 @@ public class ScoreDisplay extends Actor
 {
     //declaring variables for the score display's image
     private GreenfootImage image;
-    public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH;
-    public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT / 11;
+    public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH / 3;
+    public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT;
     public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = MainMenu.highscoreFont;
     
     //declaring instance variables
     private int score;
-    private String display;
+    private String scoreDisplay, wpmDisplay, accuracyDisplay;
     private int wpm;
     private int accuracy;
     
@@ -30,16 +30,15 @@ public class ScoreDisplay extends Actor
         //setting the player's score
         this.score = score;
         wpm = 0;
-        display = "SCORE: " + this.score;
-        display += " WPM: 0";
-        display += " ACCURACY: 0%";
+        scoreDisplay = "SCORE: " + this.score;
+        wpmDisplay = "WPM: 0";
+        accuracyDisplay = "ACCURACY: 0%";
         
         medalsUnlocked = new ArrayList<Integer>();
         
         //creating and setting the image for the score display
         image =  new GreenfootImage(SCORE_DISPLAY_WIDTH + 1, SCORE_DISPLAY_HEIGHT + 1);
         drawScoreDisplay();
-        setImage(image);
     }
     
     /**
@@ -49,13 +48,12 @@ public class ScoreDisplay extends Actor
     {
         //updating the score and the display
         this.score = score;
-        display = "SCORE: " + this.score;
+        scoreDisplay = "SCORE: " + this.score;
         if(gameTime / 60 != 0) wpm = 60*(score/5)/(gameTime/60);
-        display += " WPM: " + wpm;
+        wpmDisplay = "WPM: " + wpm;
         this.accuracy = (int) Math.round((1.0*correct / (correct + incorrect)) * 100);
-        display += " ACCURACY: " + this.accuracy + "%";
+        accuracyDisplay = "ACCURACY: " + this.accuracy + "%";
         drawScoreDisplay();
-        setImage(image);
         
         if(UserInfo.isStorageAvailable()){
             if(score >= 200 && wpm >= 70 && MainMenu.user.getInt(0) == 0){
@@ -109,6 +107,9 @@ public class ScoreDisplay extends Actor
         image.clear();
         image.setColor(scoreColor);
         image.setFont(scoreFont);
-        image.drawString(display, SCORE_DISPLAY_WIDTH / 20, (SCORE_DISPLAY_HEIGHT + scoreFont.getSize() / 2) / 2);
+        image.drawString(scoreDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) / 4);
+        image.drawString(wpmDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) / 2);
+        image.drawString(accuracyDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) * 3 / 4);
+        setImage(image);
     }
 }

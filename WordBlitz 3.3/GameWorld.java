@@ -177,13 +177,13 @@ public class GameWorld extends World {
         if(numMedals != ScoreDisplay.medalsUnlocked.size()){
             for(int i = numMedals; i < ScoreDisplay.medalsUnlocked.size(); i++){
                 int medal = ScoreDisplay.medalsUnlocked.get(i);
-                if(medal == 0) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT / 5);
-                else if(medal == 3) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 2 / 5);
-                else if(medal == 6) addObject(new Achievement(medal, true, true), WIDTH * 70 / 85, HEIGHT * 3 / 5);
-                else if(medal == 1) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT / 5);
-                else if(medal == 4) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 2 / 5);
-                else if(medal == 7) addObject(new Achievement(medal, true, true), WIDTH * 79 / 85, HEIGHT * 3 / 5);
-                else addObject(new Achievement(medal, true, true), WIDTH * 149 / 170, HEIGHT * 4 / 5);
+                if(medal == 0) addObject(new Achievement(medal, true, true), WIDTH * 23 / 32, HEIGHT / 5);
+                else if(medal == 3) addObject(new Achievement(medal, true, true), WIDTH * 23 / 32, HEIGHT * 2 / 5);
+                else if(medal == 6) addObject(new Achievement(medal, true, true), WIDTH * 23 / 32, HEIGHT * 3 / 5);
+                else if(medal == 1) addObject(new Achievement(medal, true, true), WIDTH * 7 / 8, HEIGHT * 3 / 10);
+                else if(medal == 4) addObject(new Achievement(medal, true, true), WIDTH * 7 / 8, HEIGHT / 2);
+                else if(medal == 7) addObject(new Achievement(medal, true, true), WIDTH * 7 / 8, HEIGHT * 7 / 10);
+                else addObject(new Achievement(medal, true, true), WIDTH * 23 / 32, HEIGHT * 4 / 5);
                 
                 achievementSounds[achievementSoundIndex].play();
                 achievementSoundIndex++;

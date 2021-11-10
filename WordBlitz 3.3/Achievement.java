@@ -119,7 +119,7 @@ public class Achievement extends Actor
      */
     private void drawDescription(){
         image.clear();
-        Color black = new Color(255, 0, 127, 50);
+        Color black = new Color(255, 0, 100, 50);
         image.setColor(black);
         image.fill();
         image.setColor(Color.YELLOW);
