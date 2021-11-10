@@ -96,10 +96,10 @@ public class GameWorld extends World {
         }
         // White box to display the words
         wordBox = new WordBox(new LinkedList<String>(playerWordQueue));
-        addObject(wordBox, 400, 250);
+        addObject(wordBox, WIDTH / 2, HEIGHT / 2);
         
-        addObject(correctWordOverlay, 400, 250);
-        addObject(wrongWordOverlay, 400, 250);
+        addObject(correctWordOverlay, WIDTH / 2, HEIGHT / 2);
+        addObject(wrongWordOverlay, WIDTH / 2, HEIGHT / 2);
         addObject(checkInput, 500, 300);
         
         correctSoundIndex = 0;

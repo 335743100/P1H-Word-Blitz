@@ -12,7 +12,7 @@ public class WordBox extends Actor
 {
     public static Font COURIER_NEW = new Font("Courier New", 20);
     public static int WIDTH = 500;
-    public static int HEIGHT = 300;
+    public static int HEIGHT = 150;
     
     public WordBox(Queue<String> queue) {
         setWordBox(queue);
@@ -28,10 +28,11 @@ public class WordBox extends Actor
         String displayString = "";
         int length = 0;
         
-        display.setColor(Color.WHITE);
+        Color background = new Color(0, 0, 0, 100);
+        display.setColor(background);
         display.fill();
-        display.setColor(Color.BLACK);
-        display.drawRect(0, 0, WIDTH, HEIGHT);
+        display.setColor(Color.WHITE);
+        //display.drawRect(0, 0, WIDTH, HEIGHT);
         display.setFont(COURIER_NEW);
         while (!queue.isEmpty()) {
             String word = queue.remove();

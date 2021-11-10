@@ -26,6 +26,7 @@ public class MainMenu extends World
     private GreenfootSound backgroundMusic = new GreenfootSound("BackgroundMusic.mp3");
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
     private GreenfootSound errorSound = new GreenfootSound("Wrong.wav");
+    boolean musicStarted = false;
     private MouseInfo mouse;
     
     public static UserInfo user;
@@ -90,7 +91,10 @@ public class MainMenu extends World
     }
     
     public void started(){
-        backgroundMusic.playLoop();
+        if(!musicStarted){
+            backgroundMusic.playLoop();
+            musicStarted = true;
+        }
     }
     
     public void act(){
