@@ -13,9 +13,9 @@ public class EndScreen extends World
     public static final int HEIGHT = GameWorld.HEIGHT;
     
     private GreenfootImage background;
-    public static GreenfootImage bgImage = MainMenu.bgImage;
+    public static final GreenfootImage bgImage = MainMenu.bgImage;
     public static final Color titleColor = MainMenu.titleColor;
-    public static Font titleFont = MainMenu.titleFont;
+    public static final Font titleFont = MainMenu.titleFont;
     private String title = "GAME OVER";
     public static final Color scoreColor = InstructionsMenu.instructionsColor;
     public static final Font scoreFont = MainMenu.highscoreFont;

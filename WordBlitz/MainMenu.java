@@ -15,7 +15,7 @@ public class MainMenu extends World
     private GreenfootImage background;
     public static GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
     public static final Color titleColor = new Color(255, 0, 255);
-    public static Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
+    public static final Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Word Blitz";
     public static final Color easyHighscoreColor = new Color(0, 255, 0);
     public static final Color normalHighscoreColor = new Color(255, 255, 0);

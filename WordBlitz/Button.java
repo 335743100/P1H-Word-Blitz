@@ -8,27 +8,31 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Actor
 {
+    public static final int BUTTON_WIDTH = GameWorld.WIDTH * 96 / 425;
+    public static final int BUTTON_HEIGHT = GameWorld.HEIGHT * 9 / 88;
+    
     //declaring variables for the button's image
     private GreenfootImage image;
-    public static final int BUTTON_WIDTH = 960 / 5;
-    public static final int BUTTON_HEIGHT = 540 / 11;
     private Color bgColor;
     private Color outlineColor;
     private Color labelColor;
     private Color hoverColor;
     private Color flashColor;
+    public static final Font labelFont = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
     private String label;
-    public static Font labelFont = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
     
     //declaring instance variables
     //sound
     private GreenfootSound moveSound = new GreenfootSound("Menu Move.wav");
     private boolean soundPlayed = false;
-    //mouse tracking
-    private MouseInfo mouse;
+    
+    //button state tracking
     private boolean hovering = false;
     private boolean flashing = false;
     private int duration;
+    
+    //mouse tracking
+    private MouseInfo mouse;
     
     public Button(String label, Color bgColor, Color outlineColor, Color labelColor, Color hoverColor, Color flashColor){
         image = new GreenfootImage(BUTTON_WIDTH + 1, BUTTON_HEIGHT + 1); //creating the blank GreenfootImages used for the buttons

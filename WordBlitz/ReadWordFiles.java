@@ -20,7 +20,9 @@ public class ReadWordFiles {
         lst.add(nouns);
         lst.add(verbs);
         lst.add(adjectives);
+        
         String[] types = {"nouns.txt", "verbs.txt", "adjectives.txt"};
+        
         try {
             for (int i = 0; i < 3; i++) {
                 File file = new File(types[i]);
@@ -31,6 +33,7 @@ public class ReadWordFiles {
                 scanner.close();
             }
         } catch (FileNotFoundException ignored) {}
+        
         return lst;
     }
 }

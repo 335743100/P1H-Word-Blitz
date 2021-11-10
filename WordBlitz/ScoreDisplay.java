@@ -11,33 +11,33 @@ import java.lang.Math;
  */
 public class ScoreDisplay extends Actor
 {
-    //declaring variables for the score display's image
-    private GreenfootImage image;
     public static final int SCORE_DISPLAY_WIDTH = GameWorld.WIDTH / 3;
     public static final int SCORE_DISPLAY_HEIGHT = GameWorld.HEIGHT;
+    
+    //declaring variables for the score display's image
+    private GreenfootImage image;
     public static final Color scoreColor = new Color(255, 255, 0);
     public static final Font scoreFont = MainMenu.highscoreFont;
     
     //declaring instance variables
-    private int score;
+    private int score, wpm, accuracy;
     private String scoreDisplay, wpmDisplay, accuracyDisplay;
-    private int wpm;
-    private int accuracy;
     
     public static ArrayList<Integer> medalsUnlocked;
     
     public ScoreDisplay(int score){
-        //setting the player's score
+        image =  new GreenfootImage(SCORE_DISPLAY_WIDTH + 1, SCORE_DISPLAY_HEIGHT + 1);
+        
+        //setting the player's stats
         this.score = score;
         wpm = 0;
+        accuracy = 0;
         scoreDisplay = "SCORE: " + this.score;
-        wpmDisplay = "WPM: 0";
-        accuracyDisplay = "ACCURACY: 0%";
+        wpmDisplay = "WPM: " + wpm;
+        accuracyDisplay = "ACCURACY: " + accuracy + "%";
         
         medalsUnlocked = new ArrayList<Integer>();
         
-        //creating and setting the image for the score display
-        image =  new GreenfootImage(SCORE_DISPLAY_WIDTH + 1, SCORE_DISPLAY_HEIGHT + 1);
         drawScoreDisplay();
     }
     
@@ -48,10 +48,10 @@ public class ScoreDisplay extends Actor
     {
         //updating the score and the display
         this.score = score;
-        scoreDisplay = "SCORE: " + this.score;
-        if(gameTime / 60 != 0) wpm = 60*(score/5)/(gameTime/60);
-        wpmDisplay = "WPM: " + wpm;
+        if(gameTime / 60 != 0) wpm = 60 * (score / 5) / (gameTime / 60);
         this.accuracy = (int) Math.round((1.0*correct / (correct + incorrect)) * 100);
+        wpmDisplay = "WPM: " + wpm;
+        scoreDisplay = "SCORE: " + this.score;
         accuracyDisplay = "ACCURACY: " + this.accuracy + "%";
         drawScoreDisplay();
         
