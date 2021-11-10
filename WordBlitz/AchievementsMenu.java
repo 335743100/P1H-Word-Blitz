@@ -12,12 +12,12 @@ public class AchievementsMenu extends World
     public static final int HEIGHT = GameWorld.HEIGHT;
     
     private GreenfootImage background;
-    public static final GreenfootImage bgImage = MainMenu.bgImage;
-    public static final Color titleColor = MainMenu.titleColor;
-    public static final Font titleFont = MainMenu.titleFont;
+    public static final GreenfootImage BG_IMAGE = MainMenu.BG_IMAGE;
+    public static final Color TITLE_COLOR = MainMenu.TITLE_COLOR;
+    public static final Font TITLE_FONT = MainMenu.TITLE_FONT;
     private String title = "Achievements";
-    public static final Color achievementsColor = InstructionsMenu.instructionsColor;
-    public static final Font achievementsFont = MainMenu.highscoreFont;
+    public static final Color ACHIEVEMENTS_COLOR = InstructionsMenu.INSTRUCTIONS_COLOR;
+    public static final Font ACHIEVEMENTS_FONT = MainMenu.HIGHSCORE_FONT;
     
     private Button backButton;
     private GreenfootSound clickSound = new GreenfootSound("Menu Click.wav");
@@ -31,12 +31,12 @@ public class AchievementsMenu extends World
         super(WIDTH, HEIGHT, 1);
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.drawImage(bgImage, 0, 0);
-        background.setColor(titleColor);
-        background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
-        background.setColor(achievementsColor);
-        background.setFont(achievementsFont);
+        background.drawImage(BG_IMAGE, 0, 0);
+        background.setColor(TITLE_COLOR);
+        background.setFont(TITLE_FONT);
+        background.drawString(title, (getWidth() - (int)(title.length() * TITLE_FONT.getSize() * 0.6)) / 2, getHeight() / 7);
+        background.setColor(ACHIEVEMENTS_COLOR);
+        background.setFont(ACHIEVEMENTS_FONT);
         setBackground(background);
         
         if(UserInfo.isStorageAvailable()){
@@ -122,7 +122,7 @@ public class AchievementsMenu extends World
             }
         }
         
-        backButton = new Button("Back", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        backButton = new Button("Back", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(backButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     

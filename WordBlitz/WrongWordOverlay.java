@@ -13,8 +13,8 @@ public class WrongWordOverlay extends Actor
     public static final int WIDTH = GameWorld.WIDTH * 10 / 17;
     public static final int HEIGHT = GameWorld.HEIGHT * 5 / 8;
     
-    public static final Color wrongColor = new Color(255, 0, 0);
-    public static final Font textFont = new Font("Courier New", true, false, 30);
+    public static final Color WRONG_COLOR = new Color(255, 0, 0);
+    public static final Font OVERLAY_FONT = new Font("Courier New", true, false, 30);
     
     public WrongWordOverlay() {
         setImage(new GreenfootImage(WIDTH, HEIGHT));
@@ -30,11 +30,13 @@ public class WrongWordOverlay extends Actor
      */
     public void setWrongOverlay(String word, int numCorrect, int numWrong, boolean clear){
         GreenfootImage display = new GreenfootImage(WIDTH, HEIGHT);
+        
         String displayString = "";
         for(int i = numCorrect; i < (numCorrect + numWrong); i++) displayString += Character.toString(word.charAt(i));
-        display.setColor(wrongColor);
-        display.setFont(textFont);
-        display.drawString(displayString, 20 + (int)((numCorrect) * textFont.getSize() * 0.6), 20);
+        
+        display.setColor(WRONG_COLOR);
+        display.setFont(OVERLAY_FONT);
+        display.drawString(displayString, WIDTH / 25 + (int)((numCorrect) * OVERLAY_FONT.getSize() * 0.6), HEIGHT / 15);
         if(clear) display.clear();
         setImage(display);
     }

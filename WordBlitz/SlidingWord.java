@@ -11,8 +11,8 @@ public class SlidingWord extends Actor
     public static final int WIDTH = GameWorld.WIDTH;
     public static final int HEIGHT = GameWorld.HEIGHT;
     
-    public static final Color wordColor = new Color(255, 255, 255);
-    public static final Font wordFont = new Font("Courier New", 30);
+    public static final Color WORD_COLOR = new Color(255, 255, 255);
+    public static final Font WORD_FONT = new Font("Courier New", 30);
     
     private String slidingWord = "";
     private int slidingX = 0;
@@ -30,8 +30,8 @@ public class SlidingWord extends Actor
         if(slidingWord.length() > 0){
             if(slidingY < slidingYEnd){
                 GreenfootImage display = new GreenfootImage(WIDTH, HEIGHT);
-                display.setColor(wordColor);
-                display.setFont(wordFont);
+                display.setColor(WORD_COLOR);
+                display.setFont(WORD_FONT);
                 display.drawString(slidingWord, slidingX, slidingY);
                 slidingY+=3;
                 setImage(display);

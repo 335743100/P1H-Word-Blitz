@@ -18,7 +18,7 @@ public class Button extends Actor
     private Color labelColor;
     private Color hoverColor;
     private Color flashColor;
-    public static final Font labelFont = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
+    public static final Font LABEL_FONT = new Font("Courier New", true, false, BUTTON_HEIGHT / 2);
     private String label;
     
     //declaring instance variables
@@ -125,10 +125,10 @@ public class Button extends Actor
         //adding label
         if(flashing) image.setColor(flashColor);
         else image.setColor(labelColor);
-        image.setFont(labelFont);
+        image.setFont(LABEL_FONT);
         if(hovering){ //change the label color if the mouse is hovering the button
             image.setColor(hoverColor);
         }
-        image.drawString(label, (image.getWidth() - (int)(label.length() * labelFont.getSize() * 0.58)) / 2, (image.getHeight() + labelFont.getSize() / 2) / 2);
+        image.drawString(label, (image.getWidth() - (int)(label.length() * LABEL_FONT.getSize() * 0.6)) / 2, (image.getHeight() + LABEL_FONT.getSize() / 2) / 2);
     }
 }

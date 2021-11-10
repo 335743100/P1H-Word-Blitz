@@ -16,8 +16,8 @@ public class ScoreDisplay extends Actor
     
     //declaring variables for the score display's image
     private GreenfootImage image;
-    public static final Color scoreColor = new Color(255, 255, 0);
-    public static final Font scoreFont = MainMenu.highscoreFont;
+    public static final Color SCORE_COLOR = new Color(255, 255, 0);
+    public static final Font SCORE_FONT = MainMenu.HIGHSCORE_FONT;
     
     //declaring instance variables
     private int score, wpm, accuracy;
@@ -105,11 +105,11 @@ public class ScoreDisplay extends Actor
     private void drawScoreDisplay(){
         //drawing the display
         image.clear();
-        image.setColor(scoreColor);
-        image.setFont(scoreFont);
-        image.drawString(scoreDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) / 4);
-        image.drawString(wpmDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) / 2);
-        image.drawString(accuracyDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - scoreFont.getSize()) * 3 / 4);
+        image.setColor(SCORE_COLOR);
+        image.setFont(SCORE_FONT);
+        image.drawString(scoreDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) / 4);
+        image.drawString(wpmDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) / 2);
+        image.drawString(accuracyDisplay, SCORE_DISPLAY_WIDTH / 10, (SCORE_DISPLAY_HEIGHT - SCORE_FONT.getSize()) * 3 / 4);
         setImage(image);
     }
 }

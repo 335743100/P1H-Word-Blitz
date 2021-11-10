@@ -13,14 +13,14 @@ public class MainMenu extends World
     public static final int HEIGHT = GameWorld.HEIGHT;
     
     private GreenfootImage background;
-    public static GreenfootImage bgImage = new GreenfootImage("MenuBackground.jpg");
-    public static final Color titleColor = new Color(255, 0, 255);
-    public static final Font titleFont = new Font("Courier New", true, false, HEIGHT / 10);
+    public static final GreenfootImage BG_IMAGE = new GreenfootImage("MenuBackground.jpg");
+    public static final Color TITLE_COLOR = new Color(255, 0, 255);
+    public static final Font TITLE_FONT = new Font("Courier New", true, false, HEIGHT / 10);
     private String title = "Word Blitz";
-    public static final Color easyHighscoreColor = new Color(0, 255, 0);
-    public static final Color normalHighscoreColor = new Color(255, 255, 0);
-    public static final Color hardHighscoreColor = new Color(255, 0, 0);
-    public static final Font highscoreFont = new Font("Courier New", true, false, HEIGHT / 20);
+    public static final Color EASY_HS_COLOR = new Color(0, 255, 0);
+    public static final Color NORMAL_HS_COLOR = new Color(255, 255, 0);
+    public static final Color HARD_HS_COLOR = new Color(255, 0, 0);
+    public static final Font HIGHSCORE_FONT = new Font("Courier New", true, false, HEIGHT / 20);
     private String easyHighscore, normalHighscore, hardHighscore;
     
     private Button startButton, difficultyButton, instructionsButton, achievementsButton;
@@ -67,29 +67,29 @@ public class MainMenu extends World
         }
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.drawImage(bgImage, 0, 0);
-        background.setColor(titleColor);
-        background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.6)) / 2, getHeight() / 7);
-        background.setFont(highscoreFont);
-        background.setColor(easyHighscoreColor);
-        background.drawString(easyHighscore, (getWidth() - (int)(easyHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 2 / 7);
-        background.setColor(normalHighscoreColor);
-        background.drawString(normalHighscore, (getWidth() - (int)(normalHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
-        background.setColor(hardHighscoreColor);
-        background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * highscoreFont.getSize() * 0.6)) / 2, getHeight() * 3 / 7);
+        background.drawImage(BG_IMAGE, 0, 0);
+        background.setColor(TITLE_COLOR);
+        background.setFont(TITLE_FONT);
+        background.drawString(title, (getWidth() - (int)(title.length() * TITLE_FONT.getSize() * 0.6)) / 2, getHeight() / 7);
+        background.setFont(HIGHSCORE_FONT);
+        background.setColor(EASY_HS_COLOR);
+        background.drawString(easyHighscore, (getWidth() - (int)(easyHighscore.length() * HIGHSCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 2 / 7);
+        background.setColor(NORMAL_HS_COLOR);
+        background.drawString(normalHighscore, (getWidth() - (int)(normalHighscore.length() * HIGHSCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
+        background.setColor(HARD_HS_COLOR);
+        background.drawString(hardHighscore, (getWidth() - (int)(hardHighscore.length() * HIGHSCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 3 / 7);
         setBackground(background);
         
-        startButton = new Button("Start Game", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        startButton = new Button("Start Game", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(startButton, WIDTH / 2, (int)(HEIGHT * 3 / 5));
         
-        difficultyButton = new Button("Difficulty", Color.BLACK, titleColor, Color.WHITE, Color.BLUE, Color.RED);
+        difficultyButton = new Button("Difficulty", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.BLUE, Color.RED);
         addObject(difficultyButton, WIDTH / 2, (int)(HEIGHT * 3 / 4));
         
-        instructionsButton = new Button("How To Play", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        instructionsButton = new Button("How To Play", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(instructionsButton, WIDTH / 7, (int)(HEIGHT * 9 / 10));
         
-        achievementsButton = new Button("Achievements", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        achievementsButton = new Button("Achievements", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(achievementsButton, WIDTH * 6 / 7, (int)(HEIGHT * 9 / 10));
     }
     

@@ -15,10 +15,8 @@ public class WordBox extends Actor
     public static final int WIDTH = GameWorld.WIDTH * 6 / 17;
     public static final int HEIGHT = GameWorld.HEIGHT * 5 / 6;
     
-    public static final Color wordColor = new Color(255, 255, 255);
-    public static final Font wordFont = new Font("Courier New", 30);
-    
-    public static final int[] HEIGHTS = {24, 23, 22};
+    public static final Color WORD_COLOR = new Color(255, 255, 255);
+    public static final Font WORD_FONT = new Font("Courier New", 30);
     
     public WordBox(Queue<String> queue) {
         setWordBox(queue);
@@ -39,9 +37,9 @@ public class WordBox extends Actor
         list.remove(0);
         for(String i : list) displayString += "\n\n" + i + "\n";
         
-        display.setColor(wordColor);
-        display.setFont(wordFont);
-        display.drawString(displayString, 20, 20);
+        display.setColor(WORD_COLOR);
+        display.setFont(WORD_FONT);
+        display.drawString(displayString, WIDTH / 15, HEIGHT / 20);
         setImage(display);
     }
 }

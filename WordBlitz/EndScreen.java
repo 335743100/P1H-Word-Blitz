@@ -13,12 +13,12 @@ public class EndScreen extends World
     public static final int HEIGHT = GameWorld.HEIGHT;
     
     private GreenfootImage background;
-    public static final GreenfootImage bgImage = MainMenu.bgImage;
-    public static final Color titleColor = MainMenu.titleColor;
-    public static final Font titleFont = MainMenu.titleFont;
+    public static final GreenfootImage BG_IMAGE = MainMenu.BG_IMAGE;
+    public static final Color TITLE_COLOR = MainMenu.TITLE_COLOR;
+    public static final Font TITLE_FONT = MainMenu.TITLE_FONT;
     private String title = "GAME OVER";
-    public static final Color scoreColor = InstructionsMenu.instructionsColor;
-    public static final Font scoreFont = MainMenu.highscoreFont;
+    public static final Color SCORE_COLOR = InstructionsMenu.INSTRUCTIONS_COLOR;
+    public static final Font SCORE_FONT = MainMenu.HIGHSCORE_FONT;
     private String score;
     private String highscore = "NEW HIGHSCORE!";
     
@@ -40,37 +40,37 @@ public class EndScreen extends World
         medals = ScoreDisplay.medalsUnlocked;
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.drawImage(bgImage, 0, 0);
-        background.setColor(titleColor);
-        background.setFont(titleFont);
-        background.drawString(title, (getWidth() - (int)(title.length() * titleFont.getSize() * 0.58)) / 2, getHeight() / 7);
-        background.setColor(scoreColor);
-        background.setFont(scoreFont);
-        background.drawString(score, (getWidth() - (int)(score.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() / 4);
+        background.drawImage(BG_IMAGE, 0, 0);
+        background.setColor(TITLE_COLOR);
+        background.setFont(TITLE_FONT);
+        background.drawString(title, (getWidth() - (int)(title.length() * TITLE_FONT.getSize() * 0.6)) / 2, getHeight() / 7);
+        background.setColor(SCORE_COLOR);
+        background.setFont(SCORE_FONT);
+        background.drawString(score, (getWidth() - (int)(score.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() / 4);
         if(UserInfo.isStorageAvailable()){
             MainMenu.user = UserInfo.getMyInfo();
             if( Difficulty.gameDifficulty == Difficulty.EASY && GameWorld.score > Integer.parseInt(MainMenu.user.getString(0))){
-                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
                 MainMenu.user.setString(0, Integer.toString(GameWorld.score));
             }
             else if(Difficulty.gameDifficulty == Difficulty.NORMAL && GameWorld.score > Integer.parseInt(MainMenu.user.getString(1))){
-                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
                 MainMenu.user.setString(1, Integer.toString(GameWorld.score));
             }
             else if(Difficulty.gameDifficulty == Difficulty.HARD && GameWorld.score > Integer.parseInt(MainMenu.user.getString(2))){
-                background.drawString(highscore, (getWidth() - (int)(highscore.length() * scoreFont.getSize() * 0.58)) / 2, getHeight() * 5 / 14);
+                background.drawString(highscore, (getWidth() - (int)(highscore.length() * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 5 / 14);
                 MainMenu.user.setString(2, Integer.toString(GameWorld.score));
             }
             MainMenu.user.setInt(9, MainMenu.user.getInt(9) + 1);
             MainMenu.user.store();
             if(MainMenu.user.getInt(9) >= 100) medals.add(9);
         }
-        if(medals.size() > 0) background.drawString("NEW ACHIEVEMENTS!", (getWidth() - (int)(17 * scoreFont.getSize() * 0.58)) / 2, getHeight() * 6 / 7);
+        if(medals.size() > 0) background.drawString("NEW ACHIEVEMENTS!", (getWidth() - (int)(17 * SCORE_FONT.getSize() * 0.6)) / 2, getHeight() * 6 / 7);
         setBackground(background);
         
         addMedals();
         
-        returnButton = new Button("Return", Color.BLACK, titleColor, Color.WHITE, Color.YELLOW, Color.RED);
+        returnButton = new Button("Return", Color.BLACK, TITLE_COLOR, Color.WHITE, Color.YELLOW, Color.RED);
         addObject(returnButton, WIDTH / 7, HEIGHT * 9 /10);
     }
     

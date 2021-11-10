@@ -17,7 +17,7 @@ public class GameWorld extends World {
     public static final int HEIGHT = 480;
     
     private GreenfootImage background;
-    public static GreenfootImage bgImage = MainMenu.bgImage;
+    public static final GreenfootImage BG_IMAGE = MainMenu.BG_IMAGE;
     
     // Word bank
     private ArrayList<String> nouns;
@@ -86,7 +86,7 @@ public class GameWorld extends World {
         super(WIDTH, HEIGHT, 1);
         
         background = new GreenfootImage(WIDTH, HEIGHT);
-        background.drawImage(bgImage, 0, 0);
+        background.drawImage(BG_IMAGE, 0, 0);
         setBackground(background);
         
         listOfWordTypes = ReadWordFiles.readWordFiles();
