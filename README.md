@@ -1,5 +1,5 @@
 # WordBlitz
-By Vaughn Chan, Jaylen Cheung, and Edison Lim
+By Edison Lim, Vaughn Chan, and Jaylen Cheung
 
 ArrayLists used in class EndScreen
 ArrayLists, LinkedLists, Queues, Arrays used in World GameWorld
